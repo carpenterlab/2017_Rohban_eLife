@@ -1,0 +1,93 @@
+HDAC Knockdown Analysis
+========================================================
+
+```{r, message=FALSE,warning=FALSE}
+library(ggplot2)
+library(plyr)
+library(caret)
+library(doMC)
+library(yaml)
+library(xtable)
+library(reshape2)
+library(MASS)
+library(grid)
+library(gridExtra)
+library(hash)
+library(devtools)
+library(knitr)
+load_all("cytominr")
+
+registerDoMC()
+#output_dir <- paste(tools:::file_path_as_absolute("../results/knitr/"),"/",sep="")
+#opts_knit$set(base.dir = output_dir)
+#opts_knit$set(base.url = output_dir)
+```
+
+```{r cache=TRUE, message=FALSE}
+cf = '../data/HDAC-Knockdowns-Batch-3/hdac-ko-well-mean-global_norm.yml'
+
+P0 <- profile.data(cf) # load data
+P0 <- create.plate.pos(P0)
+P0 <- prune.outliers(P0, read.outlier.data(P0))
+P1 <- pca(P0, .99)
+P1 <- prune.ctrl.wells(P1)
+
+```
+
+```{r cache=TRUE, message=FALSE}
+plot.plates.treatment(P1)
+```
+
+```{r cache=TRUE, message=FALSE}
+Pf <- P1
+X <- feats(Pf)
+labs_o <- factors(Pf)[,"RNAi_"]
+labs_g <- factors(Pf)[,"RNAi_g_"]
+```
+
+
+```{r cache=TRUE, message=FALSE}
+labs_type <- hash(orig=labs_o, 
+                  grouped=labs_g)
+
+ct_list <- c("knn", "lda")
+lt_list <- c("grouped", "orig")
+
+
+tuneGrid <- hash(
+  lda  = NULL,
+  PenalizedLDA = NULL,
+  knn  = expand.grid(.k =c(7,13,19,21,31,41)), 
+  nb   = NULL)
+
+nfolds <- 4
+nrepeats <- 1
+fitControl <- trainControl(method="repeatedCV", 
+                           number=nfolds, 
+                           repeats=nrepeats, 
+                           returnResamp="all",
+                           selectionFunction="oneSE")
+```
+
+
+```{r cache=TRUE, message=FALSE, warning=FALSE}
+ct_list <- c("lda","knn")
+lt_list <- c("grouped")
+
+for (lt in lt_list) {
+  y <- labs_type[[lt]]
+  for (ct in ct_list) {
+    fit <- train(X, y,
+             method=ct,
+             trControl=fitControl,
+             tuneGrid=tuneGrid[[ct]])
+
+    cfmat <- melt(confusionMatrix(fit,norm = "none")$table)
+    levels(cfmat$Prediction) <- levels(cfmat$Reference) <- levels(y)
+    p <- plot.confmat(cfmat)
+    p <- p + opts(title=sprintf("Classifier = %s, labels = %s.", ct, lt))
+    print(p)
+  }  
+}
+```
+

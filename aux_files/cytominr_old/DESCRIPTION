@@ -1,0 +1,10 @@
+Package: cytominr
+Type: Package
+Title: Data mining tools for image-based profiling
+Version: 0.1
+Date: 2012-06-25
+Author: Shantanu Singh
+Maintainer: Shantanu Singh <shsingh@broadinstitute.org>
+Description: More about what it does (maybe more than one line)
+License: TBD
+Depends: methods,plyr,testthat,yaml,ggplot2,caret

@@ -1,0 +1,793 @@
+"","Protein.1","Protein.2","Method","Type","Evidence"
+"1","ATF4","JUN","Reconstituted Complex","physical","Hai T (1991)"
+"2","JUN","ATF4","Two-hybrid","physical","Bandyopadhyay S (2010)"
+"3","NFKBIA","ATF4","Two-hybrid","physical","Gao J (2008)"
+"4","ATF4","JUN","FRET","physical","Reinke AW (2013)"
+"5","ATF4","CEBPA","FRET","physical","Reinke AW (2013)"
+"6","ATF4","DDIT3","FRET","physical","Reinke AW (2013)"
+"7","JUN","ATF4","FRET","physical","Reinke AW (2013)"
+"8","CEBPA","ATF4","FRET","physical","Reinke AW (2013)"
+"9","DDIT3","ATF4","FRET","physical","Reinke AW (2013)"
+"10","DDIT3","ATF4","Two-hybrid","physical","DeGrado-Warren J (2008)"
+"11","ATF4","JUN","Co-localization","physical","Chen TC (2014)"
+"12","TBK1","TRAF2","Affinity Capture-MS","physical","Bouwmeester T (2004)"
+"13","NFKB1","TBK1","Affinity Capture-MS","physical","Bouwmeester T (2004)"
+"14","TBK1","REL","Affinity Capture-MS","physical","Bouwmeester T (2004)"
+"15","TRAF2","TBK1","Affinity Capture-Western","physical","Bonnard M (2000)"
+"16","TRAF2","TBK1","Affinity Capture-MS","physical","Behrends C (2010)"
+"17","TBK1","TRAF2","Affinity Capture-MS","physical","Li S (2011)"
+"18","TRAF2","TBK1","Affinity Capture-MS","physical","Li S (2011)"
+"19","TRAF2","TBK1","Affinity Capture-Western","physical","Shen RR (2012)"
+"20","TRAF2","TBK1","Affinity Capture-Western","physical","Zhang W (2010)"
+"21","TBK1","NFKBIA","Biochemical Activity","physical","Zhang W (2010)"
+"22","AKT1","TBK1","Affinity Capture-Western","physical","Joung SM (2011)"
+"23","TBK1","AKT1","Affinity Capture-Western","physical","Joung SM (2011)"
+"24","TBK1","AKT1","Biochemical Activity","physical","Joung SM (2011)"
+"25","CDKN1A","CDK2","Affinity Capture-Western","physical","Ono T (2000)"
+"26","CDKN1A","CDK2","Affinity Capture-Western","physical","McKenzie PP (2003)"
+"27","CDKN1A","CDK2","Reconstituted Complex","physical","McKenzie PP (2003)"
+"28","CDK2","CDKN1A","Affinity Capture-Western","physical","Law BK (2002)"
+"29","CDK2","CDKN1A","Two-hybrid","physical","Harper JW (1993)"
+"30","CDK2","CDKN1A","Reconstituted Complex","physical","Harper JW (1993)"
+"31","STAT3","CDKN1A","Affinity Capture-Western","physical","Coqueret O (2000)"
+"32","CCND1","CDKN1A","Reconstituted Complex","physical","Lin J (1996)"
+"33","CDK2","CDKN1A","Affinity Capture-Western","physical","Yam CH (1999)"
+"34","CDKN1A","CDK2","Affinity Capture-Western","physical","Selma Dagtas A (2010)"
+"35","CDKN1A","CDK4","Affinity Capture-Western","physical","Selma Dagtas A (2010)"
+"36","CDKN1A","JUN","Affinity Capture-Western","physical","Selma Dagtas A (2010)"
+"37","JUN","CDKN1A","Affinity Capture-Western","physical","Selma Dagtas A (2010)"
+"38","CCND1","CDKN1A","Affinity Capture-Western","physical","Guidoboni M (2005)"
+"39","CDK4","CDKN1A","Affinity Capture-Western","physical","Guidoboni M (2005)"
+"40","CDKN1A","CCND1","Reconstituted Complex","physical","Garcia-Wilson E (2005)"
+"41","CDK2","CDKN1A","Affinity Capture-Western","physical","Naderi S (2005)"
+"42","CDK2","CDKN1A","Affinity Capture-Western","physical","Varshochi R (2005)"
+"43","CDK2","CDKN1A","Affinity Capture-Western","physical","Jeong JH (2010)"
+"44","CDKN1A","CDK4","Affinity Capture-Western","physical","Santiago FS (2007)"
+"45","CDKN1A","CCND1","Affinity Capture-Western","physical","Santiago FS (2007)"
+"46","CDK4","CDKN1A","Affinity Capture-Western","physical","Santiago FS (2007)"
+"47","CCND1","CDKN1A","Affinity Capture-Western","physical","Santiago FS (2007)"
+"48","CDK2","CDKN1A","Affinity Capture-Western","physical","Hsu SP (2008)"
+"49","CDK4","CDKN1A","Affinity Capture-Western","physical","Hsu SP (2008)"
+"50","CDKN1A","CDK4","Affinity Capture-Western","physical","Kehn K (2004)"
+"51","CDK2","CDKN1A","Affinity Capture-Western","physical","Scholz A (2003)"
+"52","CDK2","CDKN1A","Affinity Capture-Western","physical","Peiretti A (2003)"
+"53","CDKN1A","CDK2","Affinity Capture-Western","physical","Peiretti A (2003)"
+"54","CDKN1A","CDK2","Affinity Capture-Western","physical","Derjuga A (2001)"
+"55","CDK2","CDKN1A","Co-fractionation","physical","Kim YB (2000)"
+"56","CDK2","CDKN1A","Affinity Capture-Western","physical","Park US (2000)"
+"57","CDK2","CDKN1A","Affinity Capture-Western","physical","Kim WH (2000)"
+"58","CDK2","CDKN1A","Affinity Capture-Western","physical","Kokontis JM (1998)"
+"59","CDK4","CDKN1A","Affinity Capture-Western","physical","Kokontis JM (1998)"
+"60","CDK2","CDKN1A","Affinity Capture-Western","physical","Orend G (1998)"
+"61","CDK4","CDKN1A","Affinity Capture-Western","physical","Orend G (1998)"
+"62","CDK2","CDKN1A","Affinity Capture-Western","physical","Wu G (1997)"
+"63","CDK2","CDKN1A","Affinity Capture-Western","physical","Liu J (1997)"
+"64","CDK2","CDKN1A","Affinity Capture-Western","physical","Bendjennat M (2003)"
+"65","CDKN1A","CDK2","Affinity Capture-Western","physical","Zheleva DI (2002)"
+"66","CDKN1A","CCND1","Affinity Capture-Western","physical","Zheleva DI (2002)"
+"67","CDKN1A","CDK4","Affinity Capture-Western","physical","Zheleva DI (2002)"
+"68","CCND1","CDKN1A","Co-fractionation","physical","Ruas M (2007)"
+"69","CDK4","CDKN1A","Affinity Capture-Western","physical","Mandal M (1998)"
+"70","CDK2","CDKN1A","Affinity Capture-Western","physical","Mandal M (1998)"
+"71","CDKN1A","CDK2","Affinity Capture-Western","physical","Bao GC (2006)"
+"72","CDK2","CDKN1A","Affinity Capture-Western","physical","Mattock H (2001)"
+"73","CDK2","CDKN1A","Biochemical Activity","physical","Chen Z (2002)"
+"74","CDK2","CDKN1A","Reconstituted Complex","physical","Chen J (1996)"
+"75","CDK4","CDKN1A","Reconstituted Complex","physical","Chen J (1996)"
+"76","CCND1","CDKN1A","Reconstituted Complex","physical","Chen J (1996)"
+"77","CDKN1A","CCND1","Reconstituted Complex","physical","Chen J (1996)"
+"78","CDKN1A","CDK2","Reconstituted Complex","physical","Chen J (1996)"
+"79","CDKN1A","CDK4","Reconstituted Complex","physical","Chen J (1996)"
+"80","CDKN1A","CEBPA","Reconstituted Complex","physical","Timchenko NA (1997)"
+"81","CEBPA","CDKN1A","Two-hybrid","physical","Timchenko NA (1997)"
+"82","CDK2","CDKN1A","Affinity Capture-Western","physical","Levkau B (1998)"
+"83","CDKN1A","CDK2","Affinity Capture-Western","physical","Levkau B (1998)"
+"84","CDKN1A","CCND1","Affinity Capture-Western","physical","Poon RY (1996)"
+"85","CCND1","CDKN1A","Reconstituted Complex","physical","Ramachandran N (2004)"
+"86","CDK4","CDKN1A","Reconstituted Complex","physical","Ramachandran N (2004)"
+"87","CDK2","CDKN1A","Reconstituted Complex","physical","Ramachandran N (2004)"
+"88","CDKN1A","CDK2","Reconstituted Complex","physical","Lacy ER (2005)"
+"89","CDK2","CDKN1A","Affinity Capture-Western","physical","Akagi M (1996)"
+"90","CDKN1A","CDK2","Affinity Capture-Western","physical","Zhao J (1998)"
+"91","CDKN1A","CDK2","Affinity Capture-Western","physical","Zhang Y (1999)"
+"92","CDK2","CDKN1A","Affinity Capture-Western","physical","Poon RY (1998)"
+"93","CCND1","CDKN1A","Two-hybrid","physical","Wang J (2011)"
+"94","CDKN1A","CDK2","Affinity Capture-Western","physical","Gorospe M (1996)"
+"95","CDKN1A","CDK4","Affinity Capture-Western","physical","Gorospe M (1996)"
+"96","CDK2","CDKN1A","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"97","CDKN1A","HSPA5","Affinity Capture-MS","physical","Fogeron ML (2013)"
+"98","CDKN1A","CDK4","Affinity Capture-MS","physical","Fogeron ML (2013)"
+"99","CDKN1A","CCND1","Affinity Capture-MS","physical","Fogeron ML (2013)"
+"100","CDKN1A","CDK2","Affinity Capture-MS","physical","Fogeron ML (2013)"
+"101","CCND1","CDKN1A","Two-hybrid","physical","Rolland T (2014)"
+"102","CDKN1A","TCF4","Two-hybrid","physical","Rolland T (2014)"
+"103","AKT1","CDKN1A","Reconstituted Complex","physical","Heron-Milhavet L (2006)"
+"104","AKT1","CDKN1A","Biochemical Activity","physical","Heron-Milhavet L (2006)"
+"105","CDK2","CDKN1A","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"106","CDKN1A","CDK2","Affinity Capture-Western","physical","Hall JR (2014)"
+"107","CDKN1A","CCND1","Two-hybrid","physical","Yu H (2011)"
+"108","CDKN1A","CDK2","Affinity Capture-MS","physical","Hein MY (2015)"
+"109","CDK2","CDKN1A","Affinity Capture-MS","physical","Hein MY (2015)"
+"110","AKT1","CDKN1A","Co-localization","physical","Chen TC (2014)"
+"111","CDK2","CDKN1A","Co-localization","physical","Chen TC (2014)"
+"112","CDKN1A","STAT3","Co-localization","physical","Chen TC (2014)"
+"113","CDKN1A","SMAD4","Co-localization","physical","Chen TC (2014)"
+"114","CDKN1A","FOXO1","Co-localization","physical","Chen TC (2014)"
+"115","CDKN1A","SMAD3","Affinity Capture-Western","physical","Dai M (2012)"
+"116","CCND1","CDKN1A","Affinity Capture-Western","physical","Datta D (2015)"
+"117","CTNNB1","PIK3R1","Reconstituted Complex","physical","Espada J (1999)"
+"118","CTNNB1","GSK3B","Affinity Capture-Western","physical","Davies G (2001)"
+"119","CTNNB1","TCF4","Reconstituted Complex","physical","Fasolini M (2003)"
+"120","TCF4","CTNNB1","Affinity Capture-Western","physical","Li Q (2004)"
+"121","DVL3","CTNNB1","Affinity Capture-Western","physical","Song DH (2000)"
+"122","SMAD3","CTNNB1","Affinity Capture-Western","physical","Tian YC (2002)"
+"123","SMAD4","CTNNB1","Affinity Capture-Western","physical","Tian YC (2002)"
+"124","GSK3B","CTNNB1","Biochemical Activity","physical","Kishida S (1999)"
+"125","TCF4","CTNNB1","Co-crystal Structure","physical","Poy F (2001)"
+"126","GSK3B","CTNNB1","Affinity Capture-Western","physical","Fischer L (2002)"
+"127","TCF4","CTNNB1","Reconstituted Complex","physical","Iguchi H (2007)"
+"128","GSK3B","CTNNB1","Affinity Capture-Western","physical","Kitagawa M (1999)"
+"129","SMAD3","CTNNB1","Affinity Capture-Western","physical","Dahle O (2010)"
+"130","CTNNB1","TCF4","Reconstituted Complex","physical","Notani D (2010)"
+"131","NOTCH1","CTNNB1","Affinity Capture-Western","physical","Jin YH (2009)"
+"132","CTNNB1","NOTCH1","Affinity Capture-Western","physical","Jin YH (2009)"
+"133","CTNNB1","NOTCH1","Reconstituted Complex","physical","Jin YH (2009)"
+"134","GSK3B","CTNNB1","Biochemical Activity","physical","Hart M (1999)"
+"135","GSK3B","CTNNB1","Biochemical Activity","physical","Su Y (2008)"
+"136","SMAD3","CTNNB1","Affinity Capture-Western","physical","Charbonney E (2011)"
+"137","TCF4","CTNNB1","Affinity Capture-Western","physical","Tran H (2008)"
+"138","SMAD3","CTNNB1","Affinity Capture-Western","physical","Zhou B (2012)"
+"139","CTNNB1","GSK3B","Affinity Capture-Western","physical","Huang X (2009)"
+"140","NFKB1","CTNNB1","Co-localization","physical","Kim JH (2005)"
+"141","NFKB1","CTNNB1","Affinity Capture-Western","physical","Kim JH (2005)"
+"142","CTNNB1","TCF4","Two-hybrid","physical","Sanchez-Tillo E (2011)"
+"143","CTNNB1","TCF4","Affinity Capture-MS","physical","Selbach M (2006)"
+"144","GSK3B","CTNNB1","Biochemical Activity","physical","Ding Q (2005)"
+"145","AKT1","CTNNB1","Biochemical Activity","physical","Tian Q (2004)"
+"146","TCF4","CTNNB1","Affinity Capture-Western","physical","Hamada F (2004)"
+"147","CTNNB1","TCF4","Affinity Capture-Western","physical","Hamada F (2004)"
+"148","CTNNB1","CDK2","Reconstituted Complex","physical","Park CS (2004)"
+"149","CDK2","CTNNB1","Affinity Capture-Western","physical","Park CS (2004)"
+"150","GSK3B","CTNNB1","Biochemical Activity","physical","Piao S (2008)"
+"151","GSK3B","CTNNB1","Biochemical Activity","physical","Gao C (2014)"
+"152","CTNNB1","TCF4","Affinity Capture-Western","physical","Ponce E (2014)"
+"153","TCF4","CTNNB1","Affinity Capture-Western","physical","Wu B (2013)"
+"154","CTNNB1","TCF4","Affinity Capture-Western","physical","Wu B (2013)"
+"155","CTNNB1","TCF4","Affinity Capture-Western","physical","Yamamoto H (2003)"
+"156","TCF4","CTNNB1","Affinity Capture-Western","physical","Xu X (2014)"
+"157","CTNNB1","TCF4","Affinity Capture-Western","physical","Levy L (2004)"
+"158","CTNNB1","TCF4","Reconstituted Complex","physical","Levy L (2004)"
+"159","TCF4","CTNNB1","Affinity Capture-Western","physical","Levy L (2004)"
+"160","TCF4","CTNNB1","Affinity Capture-Western","physical","Wang H (2008)"
+"161","TCF4","CTNNB1","Affinity Capture-Western","physical","Jansson EA (2005)"
+"162","CTNNB1","TCF4","Reconstituted Complex","physical","Kotlyar M (2015)"
+"163","PTEN","CTNNB1","Affinity Capture-Western","physical","Li A (2010)"
+"164","CTNNB1","PTEN","Affinity Capture-Western","physical","Li A (2010)"
+"165","AKT1","CTNNB1","Biochemical Activity","physical","Fang D (2007)"
+"166","CTNNB1","TCF4","Affinity Capture-Western","physical","Zhu Z (2014)"
+"167","GSK3B","CTNNB1","Biochemical Activity","physical","Koo J (2015)"
+"168","DKK1","CTNNB1","Co-localization","physical","Chen TC (2014)"
+"169","GSK3B","CTNNB1","Co-localization","physical","Chen TC (2014)"
+"170","NFKB1","CTNNB1","Co-localization","physical","Chen TC (2014)"
+"171","PIK3R1","CTNNB1","Co-localization","physical","Chen TC (2014)"
+"172","GSK3B","NFKB1","Biochemical Activity","physical","Demarchi F (2001)"
+"173","AKT1","GSK3B","Reconstituted Complex","physical","Thimmaiah KN (2005)"
+"174","SGK3","GSK3B","Two-hybrid","physical","Dai F (2002)"
+"175","SGK3","GSK3B","Affinity Capture-Western","physical","Dai F (2002)"
+"176","GSK3B","NOTCH1","Biochemical Activity","physical","Foltz DR (2002)"
+"177","NOTCH1","GSK3B","Reconstituted Complex","physical","Foltz DR (2002)"
+"178","GSK3B","PPARGC1A","Biochemical Activity","physical","Olson BL (2008)"
+"179","GSK3B","SMAD3","Affinity Capture-Western","physical","Guo X (2008)"
+"180","SMAD3","GSK3B","Reconstituted Complex","physical","Guo X (2008)"
+"181","TRAF2","GSK3B","Affinity Capture-MS","physical","Behrends C (2010)"
+"182","GSK3B","SMURF2","Affinity Capture-Western","physical","Wu Q (2009)"
+"183","AKT1","GSK3B","Biochemical Activity","physical","Drendall CI (2010)"
+"184","GSK3B","EIF4EBP1","Two-hybrid","physical","Vinayagam A (2011)"
+"185","GSK3B","RBPJ","Two-hybrid","physical","Vinayagam A (2011)"
+"186","GSK3B","SMAD3","Affinity Capture-Western","physical","Choi SI (2011)"
+"187","STK11","GSK3B","Affinity Capture-Western","physical","Yan D (2012)"
+"188","AKT1","GSK3B","Biochemical Activity","physical","Connor MK (2005)"
+"189","AKT1","GSK3B","Biochemical Activity","physical","Hunter MG (2004)"
+"190","AKT1","GSK3B","Affinity Capture-Western","physical","Zhu QS (2011)"
+"191","AKT1","GSK3B","Biochemical Activity","physical","Li L (2003)"
+"192","GSK3B","PRKACA","Affinity Capture-Western","physical","Fang X (2000)"
+"193","PRKACA","GSK3B","Biochemical Activity","physical","Fang X (2000)"
+"194","AKT3","GSK3B","Biochemical Activity","physical","Dragoi AM (2005)"
+"195","GSK3B","DDIT4","Biochemical Activity","physical","Katiyar S (2009)"
+"196","GSK3B","DDIT4","Affinity Capture-Western","physical","Katiyar S (2009)"
+"197","RELB","GSK3B","Affinity Capture-Western","physical","Neumann M (2011)"
+"198","GSK3B","RELB","Affinity Capture-Western","physical","Neumann M (2011)"
+"199","GSK3B","RELB","Biochemical Activity","physical","Neumann M (2011)"
+"200","AKT1","GSK3B","Biochemical Activity","physical","Nam SY (2010)"
+"201","AKT1","GSK3B","Biochemical Activity","physical","Yang WL (2009)"
+"202","GSK3B","SGK3","Two-hybrid","physical","Wang J (2011)"
+"203","GSK3B","PRKACA","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"204","GSK3B","CTNNB1","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"205","AKT1","GSK3B","Biochemical Activity","physical","Zeng L (2013)"
+"206","AKT1","GSK3B","Biochemical Activity","physical","Yang H (2005)"
+"207","AKT1","GSK3B","Biochemical Activity","physical","Boehme KA (2008)"
+"208","GSK3B","JUN","Biochemical Activity","physical","Chen BK (2007)"
+"209","AKT1","GSK3B","Biochemical Activity","physical","Cross DA (1995)"
+"210","AKT1","GSK3B","Biochemical Activity","physical","Hinton CV (2007)"
+"211","GSK3B","CCND1","Co-localization","physical","Chen TC (2014)"
+"212","GSK3B","FOXO1","Co-localization","physical","Chen TC (2014)"
+"213","GSK3B","JUN","Co-localization","physical","Chen TC (2014)"
+"214","PRKCZ","GSK3B","Co-localization","physical","Chen TC (2014)"
+"215","MAP3K2","MAP2K4","Affinity Capture-Western","physical","Cheng J (2000)"
+"216","MAP3K2","MAP2K3","Biochemical Activity","physical","Deacon K (1997)"
+"217","MAP3K2","MAP2K4","Biochemical Activity","physical","Deacon K (1997)"
+"218","MAP3K2","MAP2K4","Biochemical Activity","physical","Enomoto A (2008)"
+"219","ARAF","PIK3R1","Reconstituted Complex","physical","Fang Y (2002)"
+"220","BRAF","ARAF","Affinity Capture-MS","physical","Gloeckner CJ (2007)"
+"221","ARAF","KRAS","Two-hybrid","physical","Rolland T (2014)"
+"222","ARAF","HSP90B1","Affinity Capture-MS","physical","So J (2015)"
+"223","ARAF","KRAS","Affinity Capture-MS","physical","So J (2015)"
+"224","ARAF","BRAF","Co-localization","physical","Chen TC (2014)"
+"225","GLI1","XBP1","Two-hybrid","physical","Ravasi T (2010)"
+"226","ATF6","XBP1","FRET","physical","Reinke AW (2013)"
+"227","XBP1","ATF6","FRET","physical","Reinke AW (2013)"
+"228","CDC42","TRAF2","Affinity Capture-Western","physical","Marivin A (2013)"
+"229","CDC42","TRAF2","Reconstituted Complex","physical","Marivin A (2013)"
+"230","HSPA5","ERN1","Reconstituted Complex","physical","Liu CY (2003)"
+"231","HSPA5","RAF1","Reconstituted Complex","physical","Shu CW (2008)"
+"232","RAF1","HSPA5","Affinity Capture-Western","physical","Shu CW (2008)"
+"233","HSPA5","RAF1","Affinity Capture-Western","physical","Shu CW (2008)"
+"234","CDK2","HSPA5","Affinity Capture-MS","physical","Neganova I (2011)"
+"235","HSPA5","ERN1","Affinity Capture-Western","physical","Yanagisawa K (2010)"
+"236","AKT1","HSPA5","Affinity Capture-MS","physical","Klein JB (2005)"
+"237","HSP90B1","HSPA5","Co-fractionation","physical","Havugimana PC (2012)"
+"238","BRAF","HSPA5","Affinity Capture-MS","physical","Gloeckner CJ (2007)"
+"239","HSPA5","HSP90B1","Co-fractionation","physical","Wan C (2015)"
+"240","HSPA5","HSP90B1","Affinity Capture-MS","physical","Hein MY (2015)"
+"241","CRY1","HSPA5","Affinity Capture-MS","physical","Papp SJ (2015)"
+"242","HRAS","RAF1","Two-hybrid","physical","Stang S (1997)"
+"243","RAF1","HRAS","Two-hybrid","physical","Germani A (2003)"
+"244","RAF1","HRAS","Reconstituted Complex","physical","Mitin NY (2004)"
+"245","RAF1","HRAS","Reconstituted Complex","physical","Vargiu P (2004)"
+"246","RAF1","HRAS","Two-hybrid","physical","Yuryev A (2003)"
+"247","KRAS","RAF1","Two-hybrid","physical","Li W (2000)"
+"248","HRAS","RAF1","Two-hybrid","physical","Li W (2000)"
+"249","HRAS","RAF1","Reconstituted Complex","physical","Li W (2000)"
+"250","RAF1","PRKCE","Affinity Capture-Western","physical","Bourbon NA (2001)"
+"251","GRB10","RAF1","Co-fractionation","physical","Nantel A (1999)"
+"252","RAF1","GRB10","Two-hybrid","physical","Nantel A (1999)"
+"253","RAF1","GRB10","Affinity Capture-Western","physical","Nantel A (1999)"
+"254","RAF1","HRAS","Affinity Capture-Western","physical","Kiyono M (2000)"
+"255","RAF1","KRAS","Affinity Capture-Western","physical","Kiyono M (2000)"
+"256","HRAS","RAF1","Two-hybrid","physical","Janoueix-Lerosey I (1998)"
+"257","HRAS","RAF1","Two-hybrid","physical","Boettner B (2000)"
+"258","AKT1","RAF1","Biochemical Activity","physical","Zimmermann S (1999)"
+"259","RAF1","AKT1","Affinity Capture-Western","physical","Zimmermann S (1999)"
+"260","HRAS","RAF1","Affinity Capture-Western","physical","Karbowniczek M (2006)"
+"261","HRAS","RAF1","Two-hybrid","physical","Han L (1995)"
+"262","HRAS","RAF1","Reconstituted Complex","physical","Jelinek T (1994)"
+"263","HRAS","RAF1","Two-hybrid","physical","Romero F (1999)"
+"264","HRAS","RAF1","Two-hybrid","physical","Morcos P (1996)"
+"265","BRAF","RAF1","Affinity Capture-Western","physical","Weber CK (2001)"
+"266","RAF1","BRAF","Affinity Capture-Western","physical","Weber CK (2001)"
+"267","RAF1","GRB10","Reconstituted Complex","physical","Nantel A (1998)"
+"268","RAF1","GRB10","Two-hybrid","physical","Nantel A (1998)"
+"269","RAF1","GRB10","Affinity Capture-Western","physical","Nantel A (1998)"
+"270","GRB10","RAF1","Affinity Capture-Western","physical","Nantel A (1998)"
+"271","RAF1","HRAS","Reconstituted Complex","physical","Hu CD (1995)"
+"272","RAF1","HRAS","Affinity Capture-Western","physical","Hu CD (1995)"
+"273","RAF1","PRKCZ","Affinity Capture-Western","physical","Van Der Hoeven PC (2000)"
+"274","PRKCZ","RAF1","Affinity Capture-Western","physical","Van Der Hoeven PC (2000)"
+"275","RAF1","PRKCZ","Reconstituted Complex","physical","Van Der Hoeven PC (2000)"
+"276","RAF1","HRAS","Reconstituted Complex","physical","Rodriguez-Viciana P (1997)"
+"277","HRAS","RAF1","Affinity Capture-Western","physical","Huang YZ (2003)"
+"278","HRAS","RAF1","Reconstituted Complex","physical","Stang S (1997)"
+"279","RAF1","STK3","Affinity Capture-Western","physical","Kilili GK (2010)"
+"280","RAF1","BRAF","Affinity Capture-Western","physical","Kilili GK (2010)"
+"281","BRAF","RAF1","Affinity Capture-Western","physical","Chen C (2008)"
+"282","RAF1","BRAF","Affinity Capture-Western","physical","Chen C (2008)"
+"283","RAF1","KRAS","Reconstituted Complex","physical","Sui X (2009)"
+"284","STK3","RAF1","Affinity Capture-Western","physical","Matallanas D (2007)"
+"285","BRAF","RAF1","Affinity Capture-Western","physical","Lito P (2012)"
+"286","RAF1","KRAS","Affinity Capture-Western","physical","Lito P (2012)"
+"287","RAF1","STK3","Affinity Capture-Western","physical","ONeill E (2004)	15618521	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+825970	6788	5894	112664	111831	-	-	STK3	RAF1	KRS1|MST2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	ONeill E (2004)"
+"288","STK3","RAF1","Reconstituted Complex","physical","ONeill E (2004)	15618521	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+828889	3320	5894	109552	111831	-	-	HSP90AA1	RAF1	EL52|HSP86|HSP89A|HSP90A|HSP90N|HSPC1|HSPCA|HSPCAL1|HSPCAL4|HSPN|Hsp89|Hsp90|LAP-2|LAP2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Luminescence	physical	Taipale M (2012)	22939624	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+830038	5894	572	111831	107048	-	-	RAF1	BAD	CMD1NN|CRAF|NS5|Raf-1|c-Raf	BBC2|BCL2L8	Biochemical Activity	physical	Jin S (2005)	15849194	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+830039	5894	604	111831	107076	-	-	RAF1	BCL6	CMD1NN|CRAF|NS5|Raf-1|c-Raf	BCL5|BCL6A|LAZ3|ZBTB27|ZNF51	Biochemical Activity	physical	Jin S (2005)	15849194	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+830041	5894	596	111831	107068	-	-	RAF1	BCL2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Bcl-2|PPP1R50	Affinity Capture-Western	physical	Jin S (2005)	15849194	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+830042	596	5894	107068	111831	-	-	BCL2	RAF1	Bcl-2|PPP1R50	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Jin S (2005)	15849194	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+830710	5604	5894	111590	111831	-	-	MAP2K1	RAF1	CFC3|MAPKK1|MEK1|MKK1|PRKMK1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Gloeckner CJ (2007)	17979178	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+830744	7531	5894	113363	111831	-	-	YWHAE	RAF1	14-3-3E|HEL2|KCIP-1|MDCR|MDS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Gloeckner CJ (2007)	17979178	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+835042	5894	79444	111831	122670	-	RP11-261N11.7	RAF1	BIRC7	CMD1NN|CRAF|NS5|Raf-1|c-Raf	KIAP|LIVIN|ML-IAP|MLIAP|RNF50	Affinity Capture-Western	physical	Oberoi-Khanuja TK (2012)	22711539	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+835043	79444	5894	122670	111831	RP11-261N11.7	-	BIRC7	RAF1	KIAP|LIVIN|ML-IAP|MLIAP|RNF50	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Oberoi-Khanuja TK (2012)	22711539	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+854406	5594	5894	111580	111831	-	-	MAPK1	RAF1	ERK|ERK-2|ERK2|ERT1|MAPK2|P42MAPK|PRKM1|PRKM2|p38|p40|p41|p41mapk|p42-MAPK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Biochemical Activity	physical	Dougherty MK (2005)	15664191	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+854407	7534	5894	113366	111831	-	-	YWHAZ	RAF1	14-3-3-zeta|HEL-S-3|HEL4|KCIP-1|YWHAD	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Dougherty MK (2005)	15664191	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+854408	5300	5894	111317	111831	-	-	PIN1	RAF1	DOD|UBL5	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Dougherty MK (2005)	15664191	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+854409	5894	5300	111831	111317	-	-	RAF1	PIN1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	DOD|UBL5	Affinity Capture-Western	physical	Dougherty MK (2005)	15664191	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+854410	3265	5894	109501	111831	-	-	HRAS	RAF1	C-BAS/HAS|C-H-RAS|C-HA-RAS1|CTLO|H-RASIDX|HAMSV|HRAS1|RASH1|p21ras	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Dougherty MK (2005)	15664191	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+856360	64210	5894	122103	111831	RP11-452K12.5	-	MMS19	RAF1	MET18|MMS19L|hMMS19	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Stehling O (2012)	22678362	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+857604	5245	5894	111264	111831	-	-	PHB	RAF1	HEL-215|HEL-S-54e|PHB1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857605	3845	5894	110043	111831	-	-	KRAS	RAF1	C-K-RAS|CFC2|K-RAS2A|K-RAS2B|K-RAS4A|K-RAS4B|KI-RAS|KRAS1|KRAS2|NS|NS3|RASK2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857607	5894	5518	111831	111510	-	-	RAF1	PPP2R1A	CMD1NN|CRAF|NS5|Raf-1|c-Raf	PP2A-Aalpha|PP2AAALPHA|PR65A	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857608	5894	5521	111831	111513	-	-	RAF1	PPP2R2B	CMD1NN|CRAF|NS5|Raf-1|c-Raf	B55BETA|PP2AB55BETA|PP2ABBETA|PP2APR55B|PP2APR55BETA|PR2AB55BETA|PR2ABBETA|PR2APR55BETA|PR52B|PR55-BETA|PR55BETA|SCA12	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857609	5894	5515	111831	111507	-	-	RAF1	PPP2CA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	PP2Ac|PP2CA|PP2Calpha|RP-C	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857610	5894	5245	111831	111264	-	-	RAF1	PHB	CMD1NN|CRAF|NS5|Raf-1|c-Raf	HEL-215|HEL-S-54e|PHB1	Reconstituted Complex	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857611	5894	7529	111831	113361	-	RP1-148E22.1	RAF1	YWHAB	CMD1NN|CRAF|NS5|Raf-1|c-Raf	GW128|HEL-S-1|HS1|KCIP-1|YWHAA	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857612	5894	7531	111831	113363	-	-	RAF1	YWHAE	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3E|HEL2|KCIP-1|MDCR|MDS	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857613	5894	7533	111831	113365	-	LL22NC03-44A4.1	RAF1	YWHAH	CMD1NN|CRAF|NS5|Raf-1|c-Raf	YWHA1	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857614	5894	7532	111831	113364	-	-	RAF1	YWHAG	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3GAMMA|PPP1R170	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857615	5894	10971	111831	116168	-	-	RAF1	YWHAQ	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3|1C5|HS1	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857616	5894	7534	111831	113366	-	-	RAF1	YWHAZ	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3-zeta|HEL-S-3|HEL4|KCIP-1|YWHAD	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857617	5894	2810	111831	109072	-	-	RAF1	SFN	CMD1NN|CRAF|NS5|Raf-1|c-Raf	YWHAS	Affinity Capture-Western	physical	Rajalingam K (2005)	16041367	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857747	573	5894	107049	111831	RP11-326F20.2	-	BAG1	RAF1	BAG-1|HAP|RAP46	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Reconstituted Complex	physical	Song J (2001)	11231577	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+857749	573	5894	107049	111831	RP11-326F20.2	-	BAG1	RAF1	BAG-1|HAP|RAP46	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Song J (2001)	11231577	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+858019	6788	5894	112664	111831	-	-	STK3	RAF1	KRS1|MST2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Romano D (2010)	20086174	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+858020	5894	6788	111831	112664	-	-	RAF1	STK3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	KRS1|MST2	Affinity Capture-Western	physical	Romano D (2010)	20086174	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+859812	596	5894	107068	111831	-	-	BCL2	RAF1	Bcl-2|PPP1R50	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Mazzocca A (2003)	12488548	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+862498	5894	5925	111831	111860	-	RP11-174I10.1	RAF1	RB1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	OSRC|PPP1R130|RB|p105-Rb|pRb|pp110	Affinity Capture-Western	physical	Singh S (2010)	21139044	9606	9606	Low Throughput	-	-	-	figure 2. RR-251 inhibits Rb-Raf-1 interaction	-	BIOGRID
+869926	5894	5604	111831	111590	-	-	RAF1	MAP2K1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CFC3|MAPKK1|MEK1|MKK1|PRKMK1	Biochemical Activity	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+869927	5894	5594	111831	111580	-	-	RAF1	MAPK1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ERK|ERK-2|ERK2|ERT1|MAPK2|P42MAPK|PRKM1|PRKM2|p38|p40|p41|p41mapk|p42-MAPK	Biochemical Activity	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+869928	5894	3308	111831	109540	-	-	RAF1	HSPA4	CMD1NN|CRAF|NS5|Raf-1|c-Raf	APG-2|HEL-S-5a|HS24/P52|HSPH2|RY|hsp70|hsp70RY	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869929	5894	3312	111831	109544	-	-	RAF1	HSPA8	CMD1NN|CRAF|NS5|Raf-1|c-Raf	HEL-33|HEL-S-72p|HSC54|HSC70|HSC71|HSP71|HSP73|HSPA10|LAP-1|LAP1|NIP71	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869930	5894	3308	111831	109540	-	-	RAF1	HSPA4	CMD1NN|CRAF|NS5|Raf-1|c-Raf	APG-2|HEL-S-5a|HS24/P52|HSPH2|RY|hsp70|hsp70RY	Affinity Capture-MS	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869931	5894	3312	111831	109544	-	-	RAF1	HSPA8	CMD1NN|CRAF|NS5|Raf-1|c-Raf	HEL-33|HEL-S-72p|HSC54|HSC70|HSC71|HSP71|HSP73|HSPA10|LAP-1|LAP1|NIP71	Affinity Capture-MS	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869932	5894	3320	111831	109552	-	-	RAF1	HSP90AA1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	EL52|HSP86|HSP89A|HSP90A|HSP90N|HSPC1|HSPCA|HSPCAL1|HSPCAL4|HSPN|Hsp89|Hsp90|LAP-2|LAP2	Affinity Capture-MS	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869933	3308	5894	109540	111831	-	-	HSPA4	RAF1	APG-2|HEL-S-5a|HS24/P52|HSPH2|RY|hsp70|hsp70RY	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869934	3312	5894	109544	111831	-	-	HSPA8	RAF1	HEL-33|HEL-S-72p|HSC54|HSC70|HSC71|HSP71|HSP73|HSPA10|LAP-1|LAP1|NIP71	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869935	5894	5894	111831	111831	-	-	RAF1	RAF1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869936	5604	5894	111590	111831	-	-	MAP2K1	RAF1	CFC3|MAPKK1|MEK1|MKK1|PRKMK1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869937	3845	5894	110043	111831	-	-	KRAS	RAF1	C-K-RAS|CFC2|K-RAS2A|K-RAS2B|K-RAS4A|K-RAS4B|KI-RAS|KRAS1|KRAS2|NS|NS3|RASK2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+869938	10971	5894	116168	111831	-	-	YWHAQ	RAF1	14-3-3|1C5|HS1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+870529	7529	5894	113361	111831	RP1-148E22.1	-	YWHAB	RAF1	GW128|HEL-S-1|HS1|KCIP-1|YWHAA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+870530	7531	5894	113363	111831	-	-	YWHAE	RAF1	14-3-3E|HEL2|KCIP-1|MDCR|MDS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+870531	7532	5894	113364	111831	-	-	YWHAG	RAF1	14-3-3GAMMA|PPP1R170	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+870532	7533	5894	113365	111831	LL22NC03-44A4.1	-	YWHAH	RAF1	YWHA1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+870533	7534	5894	113366	111831	-	-	YWHAZ	RAF1	14-3-3-zeta|HEL-S-3|HEL4|KCIP-1|YWHAD	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+870534	2810	5894	109072	111831	-	-	SFN	RAF1	YWHAS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhu J (2005)	16093354	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+884908	5894	572	111831	107048	-	-	RAF1	BAD	CMD1NN|CRAF|NS5|Raf-1|c-Raf	BBC2|BCL2L8	Biochemical Activity	physical	Polzien L (2009)	19667065	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+888788	5894	3320	111831	109552	-	-	RAF1	HSP90AA1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	EL52|HSP86|HSP89A|HSP90A|HSP90N|HSPC1|HSPCA|HSPCAL1|HSPCAL4|HSPN|Hsp89|Hsp90|LAP-2|LAP2	Affinity Capture-Western	physical	Schneider C (1996)	8962087	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+894048	5516	5894	111508	111831	-	-	PPP2CB	RAF1	PP2Abeta|PP2CB	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Two-hybrid	physical	Wang J (2011)	21988832	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+894062	5599	5894	111585	111831	-	-	MAPK8	RAF1	JNK|JNK-46|JNK1|JNK1A2|JNK21B1/2|PRKM8|SAPK1|SAPK1c	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Two-hybrid	physical	Wang J (2011)	21988832	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+894067	5605	5894	111591	111831	-	-	MAP2K2	RAF1	CFC4|MAPKK2|MEK2|MKK2|PRKMK2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Two-hybrid	physical	Wang J (2011)	21988832	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+894087	5894	5932	111831	111867	-	-	RAF1	RBBP8	CMD1NN|CRAF|NS5|Raf-1|c-Raf	COM1|CTIP|JWDS|RIM|SAE2|SCKL2	Two-hybrid	physical	Wang J (2011)	21988832	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+894088	5894	7528	111831	113360	-	-	RAF1	YY1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	DELTA|INO80S|NF-E1|UCRBP|YIN-YANG-1	Two-hybrid	physical	Wang J (2011)	21988832	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+894089	8837	5894	114364	111831	-	-	CFLAR	RAF1	CASH|CASP8AP1|CLARP|Casper|FLAME|FLAME-1|FLAME1|FLIP|I-FLICE|MRIT|c-FLIP|c-FLIPL|c-FLIPR|c-FLIPS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Two-hybrid	physical	Wang J (2011)	21988832	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+903876	7531	5894	113363	111831	-	-	YWHAE	RAF1	14-3-3E|HEL2|KCIP-1|MDCR|MDS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Choudhary C (2009)	19608861	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+903907	7531	5894	113363	111831	-	-	YWHAE	RAF1	14-3-3E|HEL2|KCIP-1|MDCR|MDS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Choudhary C (2009)	19608861	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+904639	5594	5894	111580	111831	-	-	MAPK1	RAF1	ERK|ERK-2|ERK2|ERT1|MAPK2|P42MAPK|PRKM1|PRKM2|p38|p40|p41|p41mapk|p42-MAPK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Blaukat A (2000)	10958680	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+904640	5894	3845	111831	110043	-	-	RAF1	KRAS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	C-K-RAS|CFC2|K-RAS2A|K-RAS2B|K-RAS4A|K-RAS4B|KI-RAS|KRAS1|KRAS2|NS|NS3|RASK2	Affinity Capture-Western	physical	Blaukat A (2000)	10958680	9606	9606	Low Throughput	-	-	-	Ras activation inhibited by ptx	-	BIOGRID
+904641	5894	5604	111831	111590	-	-	RAF1	MAP2K1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CFC3|MAPKK1|MEK1|MKK1|PRKMK1	Affinity Capture-Western	physical	Blaukat A (2000)	10958680	9606	9606	Low Throughput	-	-	-	mek phosphorylation increased by Bradykinin stimulation while the phosphorylation was nearly completely blocked by either Ptx or GF109203X treatment	-	BIOGRID
+905157	5894	5315	111831	111332	-	-	RAF1	PKM	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CTHBP|HEL-S-30|OIP3|PK3|PKM2|TCB|THBP1	Two-hybrid	physical	Yuryev A (2003)	12620389	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+907142	23552	5894	117096	111831	RP11-350E12.2	-	CDK20	RAF1	CCRK|CDCH|P42|PNQALRE	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Varjosalo M (2013)	23602568	9606	9606	High Throughput	-	-	-	Exogenous expresssion of bait	-	BIOGRID
+907153	147746	5894	127086	111831	-	-	HIPK4	RAF1	-	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Varjosalo M (2013)	23602568	9606	9606	High Throughput	-	-	-	Exogenous expresssion of bait	-	BIOGRID
+907748	6915	5894	112777	111831	-	-	TBXA2R	RAF1	BDPLT13|TXA2-R	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Yan W (2006)	16413928	9606	9606	Low Throughput	-	-	-	exogenous expression of bait|interaction stimulated by I-BOP (CAS  128719-90-4)	-	BIOGRID
+914111	7529	5894	113361	111831	RP1-148E22.1	-	YWHAB	RAF1	GW128|HEL-S-1|HS1|KCIP-1|YWHAA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Couzens AL (2013)	24255178	9606	9606	High Throughput	0.99	-	-	-	-	BIOGRID
+915063	30011	5894	119029	111831	RP11-345L8.1	-	SH3KBP1	RAF1	CD2BP3|CIN85|GIG10|HSB-1|HSB1|MIG18	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Sato S (2013)	24167568	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+932152	10273	5894	115563	111831	LA16c-313D11.6	-	STUB1	RAF1	CHIP|HSPABP2|NY-CO-7|SCAR16|SDCCAG7|UBOX1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Biochemical Activity	physical	Dreiseidler M (2012)	22350907	9606	9606	Low Throughput	-	Ubiquitination	-	ubiquitination enhanced in the presence of Hsc70/Hsp40	-	BIOGRID
+941370	3611	5894	109824	111831	-	-	ILK	RAF1	HEL-S-28|ILK-1|ILK-2|P59|p59ILK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Varjosalo M (2013)	23455922	9606	9606	High Throughput	-	-	-	exogenous expression of bait	-	BIOGRID
+941751	114928	5894	125399	111831	RP4-769N13.4	-	GPRASP2	RAF1	GASP2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Li S (2014)	24778252	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+949117	11140	5894	116312	111831	-	-	CDC37	RAF1	P50CDC37	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Luminescence	physical	Taipale M (2014)	25036637	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+949368	8471	5894	114048	111831	-	-	IRS4	RAF1	IRS-4|PY160	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Luminescence	physical	Taipale M (2014)	25036637	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+949651	11140	5894	116312	111831	-	-	CDC37	RAF1	P50CDC37	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Taipale M (2014)	25036637	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+949974	8471	5894	114048	111831	-	-	IRS4	RAF1	IRS-4|PY160	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Taipale M (2014)	25036637	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+950904	51647	5894	119656	111831	CGI-128	-	FAM96B	RAF1	MIP18	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Stehling O (2013)	23891004	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+957599	22808	5894	116486	111831	-	-	MRAS	RAF1	M-RAs|R-RAS3|RRAS3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Jang ER (2014)	25022756	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+957600	5894	8036	111831	113729	-	RP11-348N5.2	RAF1	SHOC2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	SIAA0862|SOC2|SUR8	Affinity Capture-Western	physical	Jang ER (2014)	25022756	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+957601	5894	10075	111831	115385	-	RP3-339A18.4	RAF1	HUWE1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ARF-BP1|HECTH9|HSPC272|Ib772|LASU1|MULE|URE-B1|UREB1	Affinity Capture-Western	physical	Jang ER (2014)	25022756	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028313	10971	5894	116168	111831	-	-	YWHAQ	RAF1	14-3-3|1C5|HS1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Reconstituted Complex	physical	Bonnefoy-Berard N (1995)	7479742	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028709	5894	5604	111831	111590	-	-	RAF1	MAP2K1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CFC3|MAPKK1|MEK1|MKK1|PRKMK1	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028710	5894	5605	111831	111591	-	-	RAF1	MAP2K2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CFC4|MAPKK2|MEK2|MKK2|PRKMK2	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028711	5894	5595	111831	111581	-	-	RAF1	MAPK3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ERK-1|ERK1|ERT2|HS44KDAP|HUMKER1A|P44ERK1|P44MAPK|PRKM3|p44-ERK1|p44-MAPK	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028712	5894	5594	111831	111580	-	-	RAF1	MAPK1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ERK|ERK-2|ERK2|ERT1|MAPK2|P42MAPK|PRKM1|PRKM2|p38|p40|p41|p41mapk|p42-MAPK	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028713	5894	5595	111831	111581	-	-	RAF1	MAPK3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ERK-1|ERK1|ERT2|HS44KDAP|HUMKER1A|P44ERK1|P44MAPK|PRKM3|p44-ERK1|p44-MAPK	Biochemical Activity	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+1028714	5894	5594	111831	111580	-	-	RAF1	MAPK1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ERK|ERK-2|ERK2|ERT1|MAPK2|P42MAPK|PRKM1|PRKM2|p38|p40|p41|p41mapk|p42-MAPK	Biochemical Activity	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+1028715	5894	207	111831	106710	-	-	RAF1	AKT1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	AKT|CWS6|PKB|PKB-ALPHA|PRKBA|RAC|RAC-ALPHA	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028716	207	5894	106710	111831	-	-	AKT1	RAF1	AKT|CWS6|PKB|PKB-ALPHA|PRKBA|RAC|RAC-ALPHA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028717	5595	5894	111581	111831	-	-	MAPK3	RAF1	ERK-1|ERK1|ERT2|HS44KDAP|HUMKER1A|P44ERK1|P44MAPK|PRKM3|p44-ERK1|p44-MAPK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028720	5594	5894	111580	111831	-	-	MAPK1	RAF1	ERK|ERK-2|ERK2|ERT1|MAPK2|P42MAPK|PRKM1|PRKM2|p38|p40|p41|p41mapk|p42-MAPK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028723	5925	5894	111860	111831	RP11-174I10.1	-	RB1	RAF1	OSRC|PPP1R130|RB|p105-Rb|pRb|pp110	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1028724	5894	5925	111831	111860	-	RP11-174I10.1	RAF1	RB1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	OSRC|PPP1R130|RB|p105-Rb|pRb|pp110	Affinity Capture-Western	physical	Wang J (2009)	19058874	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1032031	83803	5894	249839	111831	-	-	Prkab1	RAF1	-	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Biochemical Activity	physical	Sprenkle AB (1997)	9091312	10116	9606	Low Throughput	-	Phosphorylation	-	-	-	BIOGRID
+1034821	5894	10048	111831	115359	-	-	RAF1	RANBP9	CMD1NN|CRAF|NS5|Raf-1|c-Raf	BPM-L|BPM90|RANBPM|RanBP7	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034822	5894	5605	111831	111591	-	-	RAF1	MAP2K2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CFC4|MAPKK2|MEK2|MKK2|PRKMK2	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034823	5894	54968	111831	120305	-	-	RAF1	TMEM70	CMD1NN|CRAF|NS5|Raf-1|c-Raf	MC5DN2	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034824	5894	29763	111831	118896	-	-	RAF1	PACSIN3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	SDPIII	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034825	5894	55666	111831	120798	-	-	RAF1	NPLOC4	CMD1NN|CRAF|NS5|Raf-1|c-Raf	NPL4	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034826	5894	5573	111831	111559	-	-	RAF1	PRKAR1A	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ACRDYS1|ADOHR|CAR|CNC|CNC1|PKR1|PPNAD1|PRKAR1|TSE1	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034827	5894	50717	111831	119121	-	RP11-574F21.1	RAF1	DCAF8	CMD1NN|CRAF|NS5|Raf-1|c-Raf	GAN2|H326|WDR42A	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034828	5894	5813	111831	111772	-	hCG_45299	RAF1	PURA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	PUR-ALPHA|PUR1|PURALPHA	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034829	5894	79443	111831	122669	-	-	RAF1	FYCO1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CATC2|CTRCT18|RUFY3|ZFYVE7	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034830	5894	4604	111831	110689	-	-	RAF1	MYBPC1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	LCCS4|MYBPCC|MYBPCS	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1034831	5894	50813	111831	119130	-	-	RAF1	COPS7A	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CSN7|CSN7A|SGN7a	Two-hybrid	physical	Johnson SE (2006)	16364241	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1036128	3320	5894	109552	111831	-	-	HSP90AA1	RAF1	EL52|HSP86|HSP89A|HSP90A|HSP90N|HSPC1|HSPCA|HSPCAL1|HSPCAL4|HSPN|Hsp89|Hsp90|LAP-2|LAP2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Mollapour M (2014)	24462205	9606	9606	Low Throughput	-	-	-	Hsp90 is human, but the other protein is from COS7 cells.	-	BIOGRID
+1052121	4343	5894	110484	111831	RP11-426L16.2	-	MOV10	RAF1	fSAP113|gb110	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-RNA	physical	Castello A (2012)	22658674	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1053082	10482	5894	115745	111831	-	-	NXF1	RAF1	MEX67|TAP	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-RNA	physical	Castello A (2012)	22658674	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1067405	1956	5894	108276	111831	-	-	EGFR	RAF1	ERBB|ERBB1|HER1|NISBD2|PIG61|mENA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Two-hybrid	physical	Kotlyar M (2015)	25402006	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1105565	3611	5894	109824	111831	-	-	ILK	RAF1	HEL-S-28|ILK-1|ILK-2|P59|p59ILK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105784	5894	813	111831	107263	-	-	RAF1	CALU	CMD1NN|CRAF|NS5|Raf-1|c-Raf	-	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105785	5894	10694	111831	115933	-	-	RAF1	CCT8	CMD1NN|CRAF|NS5|Raf-1|c-Raf	C21orf112|Cctq|D21S246|PRED71	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105786	5894	3301	111831	109534	-	RP11-54K16.1	RAF1	DNAJA1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	DJ-2|DjA1|HDJ2|HSDJ|HSJ2|HSPF4|NEDD7|hDJ-2	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105787	5894	2010	111831	108325	-	XX-FW88778H2.1	RAF1	EMD	CMD1NN|CRAF|NS5|Raf-1|c-Raf	EDMD|LEMD5|STA	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105788	5894	3845	111831	110043	-	-	RAF1	KRAS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	C-K-RAS|CFC2|K-RAS2A|K-RAS2B|K-RAS4A|K-RAS4B|KI-RAS|KRAS1|KRAS2|NS|NS3|RASK2	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105789	5894	2810	111831	109072	-	-	RAF1	SFN	CMD1NN|CRAF|NS5|Raf-1|c-Raf	YWHAS	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105790	5894	92609	111831	124961	-	PRO1512	RAF1	TIMM50	CMD1NN|CRAF|NS5|Raf-1|c-Raf	TIM50|TIM50L	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105791	5894	7529	111831	113361	-	RP1-148E22.1	RAF1	YWHAB	CMD1NN|CRAF|NS5|Raf-1|c-Raf	GW128|HEL-S-1|HS1|KCIP-1|YWHAA	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105792	5894	7531	111831	113363	-	-	RAF1	YWHAE	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3E|HEL2|KCIP-1|MDCR|MDS	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105793	5894	7532	111831	113364	-	-	RAF1	YWHAG	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3GAMMA|PPP1R170	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105794	5894	7533	111831	113365	-	LL22NC03-44A4.1	RAF1	YWHAH	CMD1NN|CRAF|NS5|Raf-1|c-Raf	YWHA1	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105795	5894	10971	111831	116168	-	-	RAF1	YWHAQ	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3|1C5|HS1	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1105796	5894	7534	111831	113366	-	-	RAF1	YWHAZ	CMD1NN|CRAF|NS5|Raf-1|c-Raf	14-3-3-zeta|HEL-S-3|HEL4|KCIP-1|YWHAD	Affinity Capture-MS	physical	So J (2015)	25852190	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1240308	10048	5894	115359	111831	-	-	RANBP9	RAF1	BPM-L|BPM90|RANBPM|RanBP7	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Atabakhsh E (2012)	23118896	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1240309	5894	10048	111831	115359	-	-	RAF1	RANBP9	CMD1NN|CRAF|NS5|Raf-1|c-Raf	BPM-L|BPM90|RANBPM|RanBP7	Affinity Capture-Western	physical	Atabakhsh E (2012)	23118896	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1240310	5894	3320	111831	109552	-	-	RAF1	HSP90AA1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	EL52|HSP86|HSP89A|HSP90A|HSP90N|HSPC1|HSPCA|HSPCAL1|HSPCAL4|HSPN|Hsp89|Hsp90|LAP-2|LAP2	Affinity Capture-Western	physical	Atabakhsh E (2012)	23118896	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1278213	4015	5894	110199	111831	-	-	LOX	RAF1	-	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Reconstituted Complex	physical	Yu Z (2012)	22438909	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1416789	409	5894	106902	111831	-	-	ARRB2	RAF1	ARB2|ARR2|BARR2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Luttrell LM (2001)	11226259	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1416790	185	5894	106691	111831	-	-	AGTR1	RAF1	AG2S|AGTR1B|AT1|AT1AR|AT1B|AT1BR|AT1R|AT2R1|HAT1R	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Luttrell LM (2001)	11226259	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+1417951	5894	54897	111831	120243	-	RP4-734G22.2	RAF1	CASZ1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CAS11|CST|SRG|ZNF693|dJ734G22.1	Two-hybrid	physical	Arroyo R (2015)	25640309	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1417952	5894	9902	111831	115231	-	-	RAF1	MRC2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CD280|CLEC13E|ENDO180|UPARAP	Two-hybrid	physical	Arroyo R (2015)	25640309	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1417953	5894	64236	111831	122122	-	PP6345	RAF1	PDLIM2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	MYSTIQUE|SLIM	Two-hybrid	physical	Arroyo R (2015)	25640309	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1428929	8924	5894	114438	111831	-	-	HERC2	RAF1	D15F37S1|MRT38|SHEP1|jdf2|p528	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Galligan JT (2015)	25476789	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+1437939	5894	2810	111831	109072	-	-	RAF1	SFN	CMD1NN|CRAF|NS5|Raf-1|c-Raf	YWHAS	FRET	physical	Mo XL (2015)	26578655	9606	9606	Low Throughput	-	-	-	BRET	-	BIOGRID
+1439449	7514	5894	113348	111831	-	-	XPO1	RAF1	CRM1|emb|exp1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Kirli K (2015)	26673895	9606	9606	High Throughput	-	-	-	Cargo A|Intreaction in the presence of RanGTP	-	BIOGRID
+1442916	5894	51	111831	106567	-	-	RAF1	ACOX1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	ACOX|PALMCOX|SCOX	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1443438	5894	813	111831	107263	-	-	RAF1	CALU	CMD1NN|CRAF|NS5|Raf-1|c-Raf	-	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1445969	5894	5099	111831	111132	-	-	RAF1	PCDH7	CMD1NN|CRAF|NS5|Raf-1|c-Raf	BH-Pcdh|BHPCDH|PPP1R120	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1446633	3611	5894	109824	111831	-	-	ILK	RAF1	HEL-S-28|ILK-1|ILK-2|P59|p59ILK	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1446634	4085	5894	110260	111831	-	-	MAD2L1	RAF1	HSMAD2|MAD2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1446635	5604	5894	111590	111831	-	-	MAP2K1	RAF1	CFC3|MAPKK1|MEK1|MKK1|PRKMK1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1446636	7533	5894	113365	111831	LL22NC03-44A4.1	-	YWHAH	RAF1	YWHA1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1446637	11346	5894	116474	111831	-	-	SYNPO	RAF1	-	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1446638	55362	5894	120640	111831	RP3-421H19.2	-	TMEM63B	RAF1	C6orf110	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1448193	5894	7533	111831	113365	-	LL22NC03-44A4.1	RAF1	YWHAH	CMD1NN|CRAF|NS5|Raf-1|c-Raf	YWHA1	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1449437	5894	9521	111831	114898	-	RP3-511E16.1	RAF1	EEF1E1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	AIMP3|P18	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1451124	5894	10987	111831	116183	-	-	RAF1	COPS5	CMD1NN|CRAF|NS5|Raf-1|c-Raf	CSN5|JAB1|MOV-34|SGN5	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1453445	5894	51188	111831	119363	-	-	RAF1	SS18L2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	KIAA-iso	Affinity Capture-MS	physical	Hein MY (2015)	26496610	9606	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1461634	20595	5894	203344	111831	RP23-333E24.4	-	Smn1	RAF1	AI849087|Gemin1|Smn	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	10090	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1461635	99100	5894	221186	111831	RP23-368I1.2	-	Cep152	RAF1	AI851464|mKIAA0912	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	10090	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1461636	212647	5894	229346	111831	RP23-334I5.1	-	Aldh4a1	RAF1	A930035F14Rik|Ahd-1|Ahd1|Aldh4|Aldh5a1|E330022C09|P5cd|P5cdh|P5cdhl|P5cdhs|Ssdh1	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Hein MY (2015)	26496610	10090	9606	High Throughput	-	-	-	interaction detected by quantitative BAC-GFP interactomics (QUBIC)	-	BIOGRID
+1504546	572	5894	107048	111831	-	-	BAD	RAF1	BBC2|BCL2L8	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Co-localization	physical	Chen TC (2014)	25241761	9606	9606	High Throughput	-	-	-	in situ PLA	-	BIOGRID
+1504549	598	5894	107070	111831	RP5-857M17.3	-	BCL2L1	RAF1	BCL-XL/S|BCL2L|BCLX|BCLXL|BCLXS|Bcl-X|PPP1R52|bcl-xL|bcl-xS	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Co-localization	physical	Chen TC (2014)	25241761	9606	9606	High Throughput	-	-	-	in situ PLA	-	BIOGRID
+1504566	331	5894	106828	111831	RP1-315G1.5	-	XIAP	RAF1	API3|BIRC4|IAP-3|ILP1|MIHA|XLP2|hIAP-3|hIAP3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Co-localization	physical	Chen TC (2014)	25241761	9606	9606	High Throughput	-	-	-	in situ PLA	-	BIOGRID
+1506035	1956	5894	108276	111831	-	-	EGFR	RAF1	ERBB|ERBB1|HER1|NISBD2|PIG61|mENA	CMD1NN|CRAF|NS5|Raf-1|c-Raf	PCA	physical	Petschnigg J (2014)	24658140	9606	9606	High Throughput	-	-	-	Mammalian-membrane two-hybrid assay (MaMTH)|Split ubiquitin-based method	-	BIOGRID
+1512550	16706	5894	201048	111831	RP23-12I13.1	-	Ksr1	RAF1	AW492498|B-KSR1|D11Bhm183e|D11Bhm184e|Ksr|RSU2|hb	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-Western	physical	Zhou L (2015)	26549023	10090	9606	Low Throughput	-	-	-	Figure 6	-	BIOGRID
+1517955	11140	5894	116312	111831	-	-	CDC37	RAF1	P50CDC37	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Affinity Capture-MS	physical	Li J (2013)	24189400	9606	9606	High Throughput	-	-	-	-	-	BIOGRID
+"
+"289","RAC1","STAT3","Two-hybrid","physical","Simon AR (2000)"
+"290","RAC1","STAT3","Affinity Capture-Western","physical","Simon AR (2000)"
+"291","RAC1","RELB","Affinity Capture-Western","physical","Matos P (2006)"
+"292","CDK2","RAC1","Affinity Capture-MS","physical","Neganova I (2011)"
+"293","SMURF2","RHOA","Reconstituted Complex","physical","Ogunjimi AA (2010)"
+"294","SMURF2","RHOA","Biochemical Activity","physical","Lu K (2011)"
+"295","SMURF2","RHOA","Biochemical Activity","physical","Wiesner S (2007)"
+"296","NFKBIA","RHOA","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"297","AKT1","MAPK14","Affinity Capture-Western","physical","Rane MJ (2001)"
+"298","MAPK14","AKT1","Biochemical Activity","physical","Rane MJ (2001)"
+"299","MAP2K3","MAPK14","Biochemical Activity","physical","Chen Z (2001)"
+"300","MAPK14","DDIT3","Biochemical Activity","physical","Wang XZ (1996)"
+"301","MAPK14","MAP2K3","Affinity Capture-Western","physical","Casar B (2007)"
+"302","MAPK14","NFKBIA","Affinity Capture-Western","physical","Tsuchiya Y (2010)"
+"303","NFKBIA","MAPK14","Affinity Capture-Western","physical","Tsuchiya Y (2010)"
+"304","MAPK14","AKT1","Biochemical Activity","physical","Hartman AD (2006)"
+"305","MAP2K3","MAPK14","Biochemical Activity","physical","Deacon K (1997)"
+"306","MAP2K4","MAPK14","Biochemical Activity","physical","Deacon K (1997)"
+"307","MAPK14","EIF4EBP1","Biochemical Activity","physical","Kumar A (2010)"
+"308","MAP2K4","MAPK14","Affinity Capture-Western","physical","Xia Y (1998)"
+"309","MAP2K4","MAPK14","Reconstituted Complex","physical","Xia Y (1998)"
+"310","MAP2K3","MAPK14","Biochemical Activity","physical","Mo JS (2010)"
+"311","MAPK14","MAP2K3","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"312","MAPK14","AKT1","Affinity Capture-Western","physical","Rane MJ (2001)"
+"313","AKT1","MAPK14","Reconstituted Complex","physical","Rane MJ (2001)"
+"314","MAPK14","ATF6","Affinity Capture-Western","physical","Egawa N (2011)"
+"315","MAPK14","JUN","Biochemical Activity","physical","Thakur N (2014)"
+"316","MAPK14","MAP2K3","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"317","STK3","EIF4EBP1","Biochemical Activity","physical","Kumar A (2010)"
+"318","MLST8","EIF4EBP1","Biochemical Activity","physical","Choo AY (2008)"
+"319","EIF4EBP1","REL","Two-hybrid","physical","Rolland T (2014)"
+"320","EIF4EBP1","TCF4","Two-hybrid","physical","Rolland T (2014)"
+"321","AKT3","EIF4EBP1","Co-fractionation","physical","Wan C (2015)"
+"322","AKT1","EIF4EBP1","Co-localization","physical","Chen TC (2014)"
+"323","AKT1","BRAF","Affinity Capture-Western","physical","Guan KL (2000)"
+"324","BRAF","AKT1","Affinity Capture-Western","physical","Guan KL (2000)"
+"325","AKT1","BRAF","Biochemical Activity","physical","Guan KL (2000)"
+"326","SMAD3","AKT1","Affinity Capture-Western","physical","Song K (2006)"
+"327","SMAD4","AKT1","Affinity Capture-Western","physical","Song K (2006)"
+"328","RPS6KB1","AKT1","Co-purification","physical","Berven LA (2004)"
+"329","AKT1","MAP2K4","Affinity Capture-Western","physical","Park HS (2002)"
+"330","MAP2K4","AKT1","Affinity Capture-Western","physical","Park HS (2002)"
+"331","AKT1","MAP2K4","Biochemical Activity","physical","Park HS (2002)"
+"332","PRKCZ","AKT1","Affinity Capture-Western","physical","Doornbos RP (1999)"
+"333","HRAS","BRAF","Two-hybrid","physical","Stang S (1997)"
+"334","HRAS","BRAF","Reconstituted Complex","physical","Reuter CW (1995)"
+"335","PRKCE","BRAF","Affinity Capture-Western","physical","Pardo OE (2006)"
+"336","BRAF","PRKCE","Affinity Capture-Western","physical","Pardo OE (2006)"
+"337","AKT1","BRAF","Co-localization","physical","Chen TC (2014)"
+"338","CRY1","TRAF2","Two-hybrid","physical","Rual JF (2005)"
+"339","CSNK1E","CRY1","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"340","CRY1","CSNK1E","Two-hybrid","physical","Wallach T (2013)"
+"341","CSNK1E","CRY1","Affinity Capture-MS","physical","Hein MY (2015)"
+"342","CRY1","SDHA","Affinity Capture-MS","physical","Papp SJ (2015)"
+"343","KRAS","RAF1","Affinity Capture-Western","physical","Rajalingam K (2005)"
+"344","KRAS","RAF1","Affinity Capture-Western","physical","Zhu J (2005)"
+"345","RAF1","KRAS","Affinity Capture-Western","physical","Blaukat A (2000)"
+"346","RAF1","KRAS","Affinity Capture-MS","physical","So J (2015)"
+"347","TRAF2","ERN1","Affinity Capture-Western","physical","Kaneko M (2003)"
+"348","ERN1","TRAF2","Affinity Capture-Western","physical","Zhu X (2014)"
+"349","TRAF2","ERN1","Co-localization","physical","Chen TC (2014)"
+"350","ERN1","TRAF2","Affinity Capture-Western","physical","Zeng T (2015)"
+"351","SMAD3","NOTCH1","Reconstituted Complex","physical","Blokzijl A (2003)"
+"352","SMAD3","NOTCH1","Affinity Capture-Western","physical","Blokzijl A (2003)"
+"353","NOTCH1","RBPJ","Reconstituted Complex","physical","Nam Y (2003)"
+"354","NFKB1","NOTCH1","Affinity Capture-Western","physical","Guan E (1996)"
+"355","NOTCH1","NFKB1","Reconstituted Complex","physical","Guan E (1996)"
+"356","NOTCH1","DLL1","Reconstituted Complex","physical","Shimizu K (2000)"
+"357","NOTCH1","NFKB1","Reconstituted Complex","physical","Wang J (2001)"
+"358","RBPJ","NOTCH1","Reconstituted Complex","physical","Aster JC (1997)"
+"359","NOTCH1","RBPJ","Affinity Capture-Western","physical","Aster JC (1997)"
+"360","AKT1","NOTCH1","Biochemical Activity","physical","Song J (2008)"
+"361","NOTCH1","RBPJ","Affinity Capture-Western","physical","Gao J (2010)"
+"362","RBPJ","NOTCH1","Affinity Capture-Western","physical","Gao J (2010)"
+"363","NOTCH1","RBPJ","Affinity Capture-Western","physical","Kim MY (2007)"
+"364","RBPJ","NOTCH1","Affinity Capture-Western","physical","Kim MY (2007)"
+"365","NOTCH1","RBPJ","Affinity Capture-Western","physical","Popko-Scibor AE (2011)"
+"366","NOTCH1","RBPJ","Affinity Capture-Western","physical","Mo JS (2007)"
+"367","RBPJ","NOTCH1","Affinity Capture-Western","physical","Kim MY (2011)"
+"368","NOTCH1","RBPJ","Affinity Capture-Western","physical","Kim MY (2011)"
+"369","NOTCH1","RBPJ","Affinity Capture-MS","physical","Yatim A (2012)"
+"370","NOTCH1","WWTR1","Affinity Capture-MS","physical","Yatim A (2012)"
+"371","NOTCH1","RBPJ","Affinity Capture-Western","physical","Yatim A (2012)"
+"372","RBPJ","NOTCH1","Affinity Capture-Western","physical","Choi YH (2013)"
+"373","NOTCH1","RBPJ","Co-fractionation","physical","Jeffries S (2002)"
+"374","NOTCH1","RBPJ","Affinity Capture-Western","physical","Jeffries S (2002)"
+"375","RBPJ","NOTCH1","Affinity Capture-Western","physical","Jeffries S (2002)"
+"376","NOTCH1","RBPJ","Affinity Capture-Western","physical","Kitagawa M (2001)"
+"377","NOTCH1","RBPJ","Co-localization","physical","Cho S (2011)"
+"378","NOTCH1","RBPJ","Affinity Capture-Western","physical","Baek HJ (2015)"
+"379","RBPJ","NOTCH1","Affinity Capture-Western","physical","Baek HJ (2015)"
+"380","RBPJ","NOTCH1","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"381","PTEN","NOTCH1","Synthetic Growth Defect","genetic","Vizeacoumar FJ (2013)"
+"382","RBPJ","NOTCH1","Affinity Capture-MS","physical","Hein MY (2015)"
+"383","RBPJ","NOTCH1","Affinity Capture-MS","physical","Li X (2015)"
+"384","SMAD4","FOXO1","Affinity Capture-Western","physical","Seoane J (2004)"
+"385","SMAD3","SMAD4","Affinity Capture-Western","physical","Seoane J (2004)"
+"386","FOXO1","SMAD4","Affinity Capture-Western","physical","Seoane J (2004)"
+"387","SMAD4","SMAD3","Affinity Capture-Western","physical","Moren A (2003)"
+"388","SMAD3","SMAD4","Affinity Capture-Western","physical","Wu JW (2002)"
+"389","SMAD3","SMAD4","Affinity Capture-Western","physical","Nakao A (1997)"
+"390","SMAD4","SMAD3","Affinity Capture-Western","physical","Hanai J (1999)"
+"391","SMAD3","SMAD4","Affinity Capture-Western","physical","Lebrun JJ (1999)"
+"392","SMAD3","SMAD4","Affinity Capture-Western","physical","Poncelet AC (2001)"
+"393","SMAD4","CEBPA","Reconstituted Complex","physical","Choy L (2003)"
+"394","SMAD3","SMAD4","Affinity Capture-Western","physical","Jablonska E (2010)"
+"395","SMAD3","SMAD4","Reconstituted Complex","physical","Prunier C (2003)"
+"396","SMAD3","SMAD4","Affinity Capture-Western","physical","Kato Y (2002)"
+"397","SMAD3","SMAD4","Affinity Capture-Western","physical","Kaimori A (2010)"
+"398","SMAD3","SMAD4","Reconstituted Complex","physical","Tang LY (2011)"
+"399","SMAD4","SMAD3","Reconstituted Complex","physical","Tang LY (2011)"
+"400","SMAD3","SMAD4","Reconstituted Complex","physical","Dupont S (2009)"
+"401","SMAD4","SMAD3","Affinity Capture-Western","physical","Dupont S (2009)"
+"402","SMAD4","SMAD3","Affinity Capture-Western","physical","Pardali K (2000)"
+"403","SMAD4","SMAD3","Affinity Capture-Western","physical","Kardassis D (2000)"
+"404","SMAD3","SMAD4","Affinity Capture-Western","physical","Xu L (2003)"
+"405","SMAD4","SMAD3","Affinity Capture-Western","physical","Fu G (2011)"
+"406","SMAD3","SMAD4","Reconstituted Complex","physical","Chen W (2007)"
+"407","SMAD3","SMAD4","Affinity Capture-Western","physical","Kang JM (2012)"
+"408","SMAD3","SMAD4","Affinity Capture-Western","physical","Gao S (2009)"
+"409","SMAD3","SMAD4","Affinity Capture-Western","physical","Li H (2009)"
+"410","SMAD4","SMAD3","Affinity Capture-Western","physical","Li H (2009)"
+"411","SMAD3","SMAD4","Affinity Capture-Western","physical","Brown KA (2008)"
+"412","SMAD3","SMAD4","Affinity Capture-MS","physical","Brown KA (2008)"
+"413","SMAD3","SMAD4","Affinity Capture-Western","physical","Halder SK (2005)"
+"414","SMAD4","SMAD3","Affinity Capture-Luminescence","physical","Barrios-Rodiles M (2005)"
+"415","SMAD3","SMAD4","Reconstituted Complex","physical","Dai F (2007)"
+"416","SMAD4","SMAD3","Reconstituted Complex","physical","Dai F (2007)"
+"417","SMAD3","SMAD4","Co-crystal Structure","physical","Chacko BM (2004)"
+"418","SMAD3","SMAD4","Reconstituted Complex","physical","Chacko BM (2004)"
+"419","SMAD3","SMAD4","Affinity Capture-Western","physical","Chacko BM (2004)"
+"420","SMAD3","SMAD4","Reconstituted Complex","physical","Stroschein SL (1999)"
+"421","SMAD3","SMAD4","Affinity Capture-Western","physical","Stroschein SL (1999)"
+"422","SMAD4","SMAD3","Affinity Capture-Western","physical","Stroschein SL (1999)"
+"423","SMAD3","SMAD4","Two-hybrid","physical","Wu RY (1997)"
+"424","SMAD4","SMAD3","Two-hybrid","physical","Wu RY (1997)"
+"425","SMAD4","SMAD3","Reconstituted Complex","physical","Wu RY (1997)"
+"426","SMAD3","SMAD4","Reconstituted Complex","physical","Wu RY (1997)"
+"427","SMAD3","SMAD4","Reconstituted Complex","physical","Tomita M (2004)"
+"428","SMAD3","SMAD4","Two-hybrid","physical","Colland F (2004)"
+"429","SMAD4","SMAD3","Two-hybrid","physical","Colland F (2004)"
+"430","SMAD3","SMAD4","Affinity Capture-Western","physical","Tang Y (2003)"
+"431","SMAD4","SMAD3","Affinity Capture-Western","physical","Ding L (2009)"
+"432","SMAD3","SMAD4","Affinity Capture-Western","physical","Fattet L (2013)"
+"433","SMAD3","SMAD4","Two-hybrid","physical","Wang J (2011)"
+"434","SMURF2","SMAD4","Affinity Capture-Western","physical","Zhang L (2013)"
+"435","SMAD3","SMAD4","Affinity Capture-Western","physical","Xue J (2014)"
+"436","SMAD3","SMAD4","Reconstituted Complex","physical","Ali A (2013)"
+"437","GLI1","SMAD4","Affinity Capture-Western","physical","Nye MD (2014)"
+"438","SMAD3","SMAD4","Reconstituted Complex","physical","Gao S (2009)"
+"439","SMAD3","SMAD4","Affinity Capture-Western","physical","Yamakawa N (2002)"
+"440","SMAD4","SMAD3","Affinity Capture-Western","physical","Yamakawa N (2002)"
+"441","SMAD4","SMAD3","Affinity Capture-Western","physical","Wang G (2005)"
+"442","JUN","SMAD4","Affinity Capture-MS","physical","Li X (2015)"
+"443","SMAD4","SMAD3","Affinity Capture-MS","physical","Li X (2015)"
+"444","SMAD4","NFKB1","Affinity Capture-MS","physical","Li X (2015)"
+"445","SMAD3","SMAD4","Affinity Capture-Western","physical","Zhou F (2014)"
+"446","SMAD3","SMAD4","Affinity Capture-Western","physical","Yang Y (2015)"
+"447","SMAD3","SMAD4","Affinity Capture-Western","physical","Yan X (2016)"
+"448","SMAD3","SMAD4","PCA","physical","Yan X (2016)"
+"449","REL","CDK2","Affinity Capture-Western","physical","Chen E (1998)"
+"450","CEBPA","CDK2","Co-fractionation","physical","Wang H (2001)"
+"451","CEBPA","CDK2","Affinity Capture-Western","physical","Wang H (2001)"
+"452","CEBPA","CDK2","Reconstituted Complex","physical","Wang H (2001)"
+"453","CDK2","CCND1","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"454","CDK2","CCND1","Affinity Capture-MS","physical","Hein MY (2015)"
+"455","CDK2","SMAD3","Co-localization","physical","Chen TC (2014)"
+"456","NFKBIA","NFKB1","Affinity Capture-Western","physical","Hay DC (2001)"
+"457","PIK3R1","NFKBIA","Reconstituted Complex","physical","Beraud C (1999)"
+"458","NFKB1","NFKBIA","Reconstituted Complex","physical","Malek S (1998)"
+"459","REL","NFKBIA","Affinity Capture-Western","physical","Spiecker M (2000)"
+"460","NFKBIA","RELB","Affinity Capture-Western","physical","Robert I (2009)"
+"461","NFKBIA","NFKB1","Affinity Capture-Western","physical","Fagan-Garcia K (2011)"
+"462","NFKB1","NFKBIA","Affinity Capture-Western","physical","Jeon YJ (2010)"
+"463","NFKB1","NFKBIA","Affinity Capture-Western","physical","Roff M (1996)"
+"464","NFKBIA","NFKB1","Affinity Capture-Western","physical","Keutgens A (2010)"
+"465","NFKBIA","NFKB1","Affinity Capture-Western","physical","Inan MS (2000)"
+"466","REL","NFKBIA","Affinity Capture-Western","physical","Chu ZL (1996)"
+"467","NFKBIA","REL","Affinity Capture-Western","physical","Chu ZL (1996)"
+"468","NFKB1","NFKBIA","Two-hybrid","physical","Wang J (2011)"
+"469","NFKB1","NFKBIA","Affinity Capture-Western","physical","Arenzana-Seisdedos F (1995)"
+"470","NFKB1","NFKBIA","Reconstituted Complex","physical","Jaffray E (1995)"
+"471","NFKB1","NFKBIA","Affinity Capture-Western","physical","Wood KM (1998)"
+"472","NFKB1","NFKBIA","Reconstituted Complex","physical","Bell S (1996)"
+"473","NFKBIA","NFKB1","Affinity Capture-Western","physical","Cockman ME (2006)"
+"474","NFKBIA","NFKB1","Reconstituted Complex","physical","Cockman ME (2006)"
+"475","NFKB1","NFKBIA","Affinity Capture-Western","physical","Lu Y (2005)"
+"476","MAP3K7","NFKBIA","Biochemical Activity","physical","Kanayama A (2004)"
+"477","NFKBIA","REL","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"478","NFKBIA","NFKB1","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"479","NFKBIA","RELB","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"480","NFKBIA","NFKB1","Affinity Capture-MS","physical","Hein MY (2015)"
+"481","NFKBIA","REL","Affinity Capture-MS","physical","Hein MY (2015)"
+"482","NFKB1","NFKBIA","Affinity Capture-MS","physical","Li X (2015)"
+"483","CSNK1E","STK3","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"484","CSNK1E","DVL3","Two-hybrid","physical","Rolland T (2014)"
+"485","PIK3CB","PIK3R1","Affinity Capture-Western","physical","Hu P (1994)"
+"486","PRKCE","PIK3CB","Affinity Capture-Western","physical","Graness A (1998)"
+"487","PIK3CB","DVL3","Two-hybrid","physical","Vinayagam A (2011)"
+"488","PIK3R1","PIK3CB","Co-fractionation","physical","Havugimana PC (2012)"
+"489","PIK3R1","PIK3CB","Affinity Capture-Western","physical","Sun M (2010)"
+"490","AKT1","PIK3CB","Co-fractionation","physical","Wan C (2015)"
+"491","PIK3CB","PIK3R1","Co-fractionation","physical","Wan C (2015)"
+"492","PIK3R1","PIK3CB","Affinity Capture-MS","physical","Hein MY (2015)"
+"493","PIK3R1","PIK3CB","Co-localization","physical","Chen TC (2014)"
+"494","DDIT3","JUN","Reconstituted Complex","physical","Ubeda M (1999)"
+"495","DDIT3","JUN","Affinity Capture-Western","physical","Ubeda M (1999)"
+"496","SMAD3","JUN","Two-hybrid","physical","Zhang Y (1998)"
+"497","SMAD3","JUN","Affinity Capture-Western","physical","Zhang Y (1998)"
+"498","SMAD3","JUN","Reconstituted Complex","physical","Zhang Y (1998)"
+"499","SMAD3","JUN","Affinity Capture-Western","physical","Verrecchia F (2000)"
+"500","JUN","STAT3","Affinity Capture-Western","physical","Zhang X (1999)"
+"501","STAT3","JUN","Affinity Capture-Western","physical","Zhang X (1999)"
+"502","STAT3","JUN","Reconstituted Complex","physical","Zhang X (1999)"
+"503","SMAD3","JUN","Reconstituted Complex","physical","Liberati NT (1999)"
+"504","CEBPA","JUN","Affinity Capture-Western","physical","Zada AA (2006)"
+"505","SMAD3","JUN","Reconstituted Complex","physical","Liberati NT (2001)"
+"506","JUN","SMAD3","Affinity Capture-Western","physical","Lee SY (2011)"
+"507","TRAF2","JUN","Biochemical Activity","physical","Park KJ (2003)"
+"508","MAP2K4","JUN","Biochemical Activity","physical","Sundarrajan M (2003)"
+"509","DDIT3","JUN","FRET","physical","Reinke AW (2013)"
+"510","PRKCZ","RPS6KB1","Affinity Capture-Western","physical","Inoue T (2006)"
+"511","AKT3","PRKCZ","Two-hybrid","physical","Hodgkinson CP (2002)"
+"512","AKT3","PRKCZ","Affinity Capture-Western","physical","Hodgkinson CP (2002)"
+"513","PRKCZ","AKT3","Affinity Capture-Western","physical","Hodgkinson CP (2002)"
+"514","PRKCZ","AKT3","Biochemical Activity","physical","Hodgkinson CP (2002)"
+"515","PRKCZ","AKT1","Affinity Capture-Western","physical","Wang J (2008)"
+"516","AKT1","PRKCZ","Affinity Capture-Western","physical","Wang J (2008)"
+"517","PRKCZ","AKT1","Biochemical Activity","physical","Joshi J (2008)"
+"518","AKT1","PRKCZ","Affinity Capture-Western","physical","Joshi J (2008)"
+"519","PRKCZ","AKT3","Co-localization","physical","Chen TC (2014)"
+"520","SMAD3","CEBPA","Reconstituted Complex","physical","Choy L (2003)"
+"521","CEBPA","CDK4","Co-fractionation","physical","Wang H (2001)"
+"522","CEBPA","CDK4","Affinity Capture-Western","physical","Wang H (2001)"
+"523","CEBPA","CDK4","Reconstituted Complex","physical","Wang H (2001)"
+"524","CDK4","CEBPA","Co-fractionation","physical","Wang H (2002)"
+"525","TRAF5","TRAF2","Affinity Capture-MS","physical","Li S (2011)"
+"526","TRAF5","TRAF2","Reconstituted Complex","physical","Li S (2011)"
+"527","MAP3K7","TRAF5","Affinity Capture-Western","physical","Hong S (2007)"
+"528","TRAF5","TRAF2","Reconstituted Complex","physical","Pullen SS (1998)"
+"529","PIK3R1","GRB10","Affinity Capture-Western","physical","Deng Y (2003)"
+"530","GRB10","AKT1","Reconstituted Complex","physical","Urschel S (2005)"
+"531","AKT1","GRB10","Biochemical Activity","physical","Urschel S (2005)"
+"532","SMAD3","YAP1","Affinity Capture-Western","physical","Alarcon C (2009)"
+"533","NFKB1","RELB","Affinity Capture-MS","physical","Bouwmeester T (2004)"
+"534","RELB","NFKB1","Affinity Capture-MS","physical","Bouwmeester T (2004)"
+"535","NFKB1","RELB","Two-hybrid","physical","Wang J (2011)"
+"536","REL","RELB","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"537","PIK3R1","HRAS","Affinity Capture-Western","physical","Hanna AN (1999)"
+"538","PIK3R1","HRAS","Reconstituted Complex","physical","Rodriguez-Viciana P (1997)"
+"539","STAT3","PIK3R1","Two-hybrid","physical","Grossmann A (2015)"
+"540","PIK3R1","HRAS","Co-localization","physical","Chen TC (2014)"
+"541","PRKACA","PKIA","Reconstituted Complex","physical","Baude EJ (1994)"
+"542","PRKACA","PRKACG","Affinity Capture-MS","physical","Varjosalo M (2013)"
+"543","STK11","RPS6KB1","Co-localization","physical","Chen TC (2014)"
+"544","TRAF2","MAP3K7","Affinity Capture-Western","physical","Ishitani T (2003)"
+"545","SMURF2","TRAF2","Affinity Capture-Western","physical","Carpentier I (2008)"
+"546","TRAF2","DIABLO","Affinity Capture-MS","physical","Behrends C (2010)"
+"547","MAP3K7","TRAF2","Affinity Capture-Western","physical","Ishitani T (2003)"
+"548","TRAF2","DIABLO","Affinity Capture-MS","physical","Li S (2011)"
+"549","TRAF2","MAP3K7","Affinity Capture-Western","physical","Hong S (2007)"
+"550","TRAF2","MAP3K7","Affinity Capture-Western","physical","Tan B (2015)"
+"551","NFKB1","REL","Affinity Capture-MS","physical","Bouwmeester T (2004)"
+"552","STAT3","NFKB1","Affinity Capture-Western","physical","Yu Z (2002)"
+"553","STAT3","NFKB1","Reconstituted Complex","physical","Yu Z (2002)"
+"554","PPARGC1A","NFKB1","Affinity Capture-Western","physical","Wang LH (2007)"
+"555","REL","NFKB1","Affinity Capture-MS","physical","Huttlin EL (2015)"
+"556","NFKB1","STAT3","Co-localization","physical","Chen TC (2014)"
+"557","NFKB1","REL","Affinity Capture-MS","physical","Li X (2015)"
+"558","AKT1","MAP2K4","Affinity Capture-Western","physical","Song JJ (2005)"
+"559","MAP2K4","AKT1","Affinity Capture-Western","physical","Song JJ (2005)"
+"560","MAP3K7","MAP2K4","Biochemical Activity","physical","Ge B (2003)"
+"561","MAP2K4","MAP3K7","Affinity Capture-Western","physical","Li MG (2003)"
+"562","AKT1","RPS6KB1","Co-localization","physical","Chen TC (2014)"
+"563","RAF1","STK3","Affinity Capture-MS","physical","ONeill E (2004)	15618521	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+825969	5894	6788	111831	112664	-	-	RAF1	STK3	CMD1NN|CRAF|NS5|Raf-1|c-Raf	KRS1|MST2	Affinity Capture-Western	physical	ONeill E (2004)"
+"564","STK3","RAF1","Affinity Capture-Western","physical","ONeill E (2004)	15618521	9606	9606	Low Throughput	-	-	-	-	-	BIOGRID
+825971	6788	5894	112664	111831	-	-	STK3	RAF1	KRS1|MST2	CMD1NN|CRAF|NS5|Raf-1|c-Raf	Reconstituted Complex	physical	ONeill E (2004)"
+"565","DVL3","WWTR1","Affinity Capture-Western","physical","Varelas X (2010)"
+"566","STAT3","MAP3K7","Affinity Capture-MS","physical","Kojima H (2005)"
+"567","STAT3","MAP3K7","Affinity Capture-Western","physical","Kojima H (2005)"
+"568","MAP3K7","STAT3","Affinity Capture-Western","physical","Kojima H (2005)"
+"569","MAP3K7","SMAD3","Co-localization","physical","Chen TC (2014)"
+"570","CDK2","HSP90B1","Affinity Capture-MS","physical","Neganova I (2011)"
+"571","PTEN","AKT1","Affinity Capture-Western","physical","Mistafa O (2010)"
+"572","SMAD3","SMURF2","Two-hybrid","physical","Lin X (2000)"
+"573","SMAD3","SMURF2","Reconstituted Complex","physical","Lin X (2000)"
+"574","SMURF2","SMAD3","Affinity Capture-Western","physical","Bonni S (2001)"
+"575","SMURF2","SMAD3","Affinity Capture-Western","physical","Nakano A (2009)"
+"576","SMAD3","SMURF2","Affinity Capture-Western","physical","Komuro A (2004)"
+"577","SMAD3","SMURF2","Affinity Capture-Western","physical","Zhang Y (2001)"
+"578","SMAD3","SMURF2","Two-hybrid","physical","Zhang Y (2001)"
+"579","SMURF2","SMAD3","Affinity Capture-Western","physical","Tang LY (2011)"
+"580","SMAD3","SMURF2","Affinity Capture-MS","physical","Brown KA (2008)"
+"581","SMAD3","SMURF2","Affinity Capture-Luminescence","physical","Zhang L (2013)"
+"582","CDK4","CCND1","Reconstituted Complex","physical","Sugimoto M (1999)"
+"583","CCND1","CDK4","Affinity Capture-Western","physical","Sugimoto M (1999)"
+"584","CDK4","CCND1","Affinity Capture-Western","physical","Serrano M (1993)"
+"585","CDK4","CCND1","Affinity Capture-Western","physical","Lin J (2001)"
+"586","CCND1","STAT3","Affinity Capture-Western","physical","Bienvenu F (2001)"
+"587","CCND1","CDK4","Affinity Capture-Western","physical","Taules M (1998)"
+"588","CDK4","CCND1","Affinity Capture-Western","physical","Cariou S (2000)"
+"589","CDK4","CCND1","Reconstituted Complex","physical","Coleman KG (1997)"
+"590","CCND1","CDK4","Affinity Capture-Western","physical","Jose-Eneriz ES (2008)"
+"591","CDK4","CCND1","Affinity Capture-Western","physical","Jose-Eneriz ES (2008)"
+"592","STAT3","CCND1","Reconstituted Complex","physical","Bienvenu F (2005)"
+"593","CCND1","STAT3","Affinity Capture-Western","physical","Bienvenu F (2005)"
+"594","CDK4","CCND1","Affinity Capture-Western","physical","Diehl JA (1997)"
+"595","CCND1","CDK4","Affinity Capture-Western","physical","Okabe H (2007)"
+"596","CDK4","CCND1","Affinity Capture-Western","physical","Bustany S (2011)"
+"597","CCND1","CDK4","Co-fractionation","physical","Gladden AB (2003)"
+"598","CCND1","CDK2","Affinity Capture-Western","physical","Sweeney KJ (1997)"
+"599","CCND1","CDK4","Affinity Capture-Western","physical","Sweeney KJ (1997)"
+"600","CDK2","CCND1","Reconstituted Complex","physical","Higashi H (1996)"
+"601","CDK2","CCND1","Affinity Capture-Western","physical","Higashi H (1996)"
+"602","CDK4","CCND1","Affinity Capture-Western","physical","Musgrove EA (1996)"
+"603","CCND1","CDK4","Affinity Capture-Western","physical","Vlach J (1996)"
+"604","CDK4","CCND1","Affinity Capture-Western","physical","Garcia-Morales P (2006)"
+"605","CCND1","CDK4","Affinity Capture-Western","physical","Bindra RS (2002)"
+"606","CCND1","CDK4","Co-fractionation","physical","Ruas M (2007)"
+"607","CCND1","CDK4","Affinity Capture-Western","physical","Poon RY (1996)"
+"608","CCND1","CDK4","Reconstituted Complex","physical","Ramachandran N (2004)"
+"609","CDK4","CCND1","Affinity Capture-Western","physical","Larrea MD (2009)"
+"610","CCND1","CDK4","Affinity Capture-MS","physical","Waaijers S (2013)"
+"611","CDK4","CCND1","Affinity Capture-Western","physical","Mallampalli RK (2013)"
+"612","CCND1","CDK4","Two-hybrid","physical","Rolland T (2014)"
+"613","CDK4","CCND1","Co-localization","physical","Chen TC (2014)"
+"614","CCND1","CDK4","Affinity Capture-Western","physical","Barbash O (2009)"
+"615","CCND1","CDK4","Affinity Capture-Western","physical","Datta D (2015)"
+"616","AKT1","AKT1S1","Biochemical Activity","physical","Sancak Y (2007)"
+"617","SMAD3","FOXO1","Affinity Capture-Western","physical","Seoane J (2004)"
+"618","CDK4","SMAD3","Biochemical Activity","physical","Matsuura I (2004)"
+"619","CDK2","SMAD3","Biochemical Activity","physical","Matsuura I (2004)"
+"620","AKT1","SMAD3","Co-localization","physical","Chen TC (2014)"
+"621","CDK4","SMAD3","Co-localization","physical","Chen TC (2014)"
+"622","CDK4","GLI1","Biochemical Activity","physical","Anders L (2011)"
+"623","GLI1","CDK4","Affinity Capture-MS","physical","Agarwal NK (2016)"
+"624","AKT1","FOXO1","Biochemical Activity","physical","Matsuzaki H (2005)"
+"625","AKT1","FOXO1","Biochemical Activity","physical","Brent MM (2008)"
+"626","AKT1","FOXO1","Biochemical Activity","physical","Rena G (1999)"
+"627","AKT1","FOXO1","Biochemical Activity","physical","Tang ED (1999)"
+"628","AKT1","FOXO1","Co-localization","physical","Chen TC (2014)"

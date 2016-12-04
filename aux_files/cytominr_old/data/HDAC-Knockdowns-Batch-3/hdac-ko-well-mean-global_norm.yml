@@ -1,0 +1,13 @@
+profile_file           : hdac-ko-well-mean-global_norm.csv
+profile_file_binary    : hdac-ko-well-mean-global_norm.rda
+qc_file                : hdac-ko-qc.csv
+qc_qn_file             : hdac-ko-qc-quant.csv
+feat_start             : 4
+no_treat_name          : untreated
+control_name           : Scr
+control_name_abbrev    : C
+treatment_names        : [HD1_1,HD1_2,HD1_3,HD3_1,HD3_2,HD3_3,HD6_1,HD6_2,HD6_3,HD7_1,HD7_2,HD8_1,HD8_2,HD8_3]
+treatment_names_abbrev : [H1.1,H1.2,H1.3,H3.1,H3.2,H3.3,H6.1,H6.2,H6.3,H7.1,H7.2,H8.1,H8.2,H8.3]
+treatment_names_grouped_abbrev : [H1,H1,H1,H3,H3,H3,H6,H6,H6,H7,H7,H8,H8,H8]
+plate_names            : [33088,33096,33115,33118]
+plate_names_abbrev     : [B3P1A,B3P1B,B3P2A,B3P2B]

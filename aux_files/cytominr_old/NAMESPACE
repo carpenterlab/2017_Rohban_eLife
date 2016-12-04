@@ -1,0 +1,8 @@
+exportPattern("^[[:alpha:]]+")
+exportClasses(
+    "Outlier",
+     "PCA",
+     "PDummy",
+     "ProfileData",
+     "Transform" 
+)

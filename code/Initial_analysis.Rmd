@@ -1,0 +1,504 @@
+  
+```{r initialization, eval=TRUE}
+
+rm(list=ls())
+plot.new()
+frame()
+library("MASS")
+library("plyr")
+library("dplyr")
+library("ggplot2")
+library("caret")
+library("doMC")
+library("yaml")
+library("xtable")
+library("reshape2")
+library("grid")
+library("gridExtra")
+library("hash")
+library("devtools")
+library("knitr")
+library("stringr")
+library("magrittr")
+library("testthat")
+library("matrixStats")
+library("httr")
+library("XML")
+library("png")
+library("wordcloud")
+library("RCurl")
+library("corrplot")
+source("../aux_files/grid_plot.R")
+
+CYTOMINR_DIR <- "../aux_files/cytominr_old/"
+load_all(CYTOMINR_DIR)
+
+registerDoMC(cores = 4)
+
+# applying median polishing
+apply.medpolish <- T
+
+# prune the edge wells
+prune.edge.wells <- F
+
+# linkage method
+clustering_method <- "average"
+
+# significance level for the hit selection 
+significance <- 0.95
+
+# type of correlation to use for the distance measure
+cor_type <- "pearson"
+
+cellcnts <- profile.data("../input/profiles/counts.well.yml") 
+Pf_org <- profile.data("../input/profiles/median.plus.mad.robstd.empty.well.profiles.yml") 
+
+# Plate and Well metadata names
+Image_Metadata_Plate <- "SIGMA2_Pilot_2013_10_11_Analysis_Per_Image.Image_Metadata_Plate"
+Image_Metadata_Well <- "SIGMA2_Pilot_2013_10_11_Analysis_Per_Image.Image_Metadata_Well"
+
+# Creating Plate Symbols List
+Plate.Symbols <- c("P1", "P2", "P3", "P4", "P5", "P6")
+
+# explicity remove some wells that were manually verified to be outliers
+prune.wells.list <- data.frame(Plate=c('P3', 'P6', 'P2'), 
+                              Well=c('b01', 'e17', 'j13'))
+
+# explicity remove some plates that were manually verified to be outliers
+prune.plates.list <- data.frame(Plate=c('P2'))
+prune.plates.number.list <- data.frame(Plate=c(41749))
+
+# append metadata that was included later
+fac <- read.csv('../input/augmented_metadata.csv')
+names(fac)[names(fac)=="ReferencePathway.Process"] <- "Pathway"
+expect_equal(intersect(names(fac), names(Pf_org$data)), "Well")
+new.fac.cols_org <- setdiff(names(fac), names(Pf_org$data))
+   
+Pf_org$data <- merge(Pf_org$data, fac, by=c("Well"))
+Pf_org$factor_cols <- c(Pf_org$factor_cols, new.fac.cols_org)
+
+# remove outliers based on annotation in the database
+Pf_org <- prune.outliers(Pf_org, read.outlier.data(Pf_org))
+
+# remove wells marked out explicitly
+if (!is.null(prune.wells.list)) {
+  Pf_org <- prune.rows(Pf_org, 
+                 !(with(Pf_org$data, paste(Plate, Well, sep="_")) %in% 
+                     with(prune.wells.list, 
+                          paste(Plate, Well, sep="_"))))
+}
+
+# remove plates marked out explicitly
+if (!is.null(prune.plates.list)) {
+  Pf_org <- prune.rows(Pf_org, !(Pf_org$data$Plate %in% 
+                           prune.plates.list$Plate))
+}
+
+# remove edge wells
+if (prune.edge.wells) {
+  Pf_org <- prune.rows(Pf_org, with(Pf_org$data, !(substr(Well, 1, 1) %in% c("a", "p")) &
+                                     !(substr(Well, 2, 3) %in% c("01", "24"))))  
+}
+
+# create plate position
+Pf_org <- create.plate.pos(Pf_org, modify.data=TRUE)
+
+# apply median polish
+if (apply.medpolish) {
+  Pf_org <- medpolish.plate(Pf_org)
+}
+
+# adding cell count as a feature
+cellcnts.r <- cellcnts$data[, c("Plate_", "Well", "Cells_Count")]
+colnames(cellcnts.r)[3] <- "Cells_AreaShape_Count"
+Pf_org$data$Plate_ <- as.character(Pf_org$data$Plate_)
+cellcnts.r$Plate_ <- as.character(cellcnts.r$Plate_)
+Pf_org$data <- merge(Pf_org$data, cellcnts.r, by = c("Well", "Plate_"), all.x = TRUE)
+Pf_org$feat_cols <- c(Pf_org$feat_cols, colnames(cellcnts.r)[3])
+
+```
+
+```{r Renaming the features to standardize channel names, eval = TRUE}
+
+f.name.tmp <- names(Pf_org$data)
+prevPattern <- c("Hoechst", "ERSytoBleed", "ERSyto", "PhGolgi", "Mito")
+newPattern <- c("DNA", "RNA", "ER", "AGP", "Mito")
+
+i <- 1
+for (s in f.name.tmp) {
+  for (j in 1:length(prevPattern)) {
+  s <- str_replace(s, pattern = prevPattern[j], replacement = newPattern[j])  
+  }
+  
+  f.name.tmp[i] <- s
+  i <- i + 1
+}
+colnames(Pf_org$data) <- f.name.tmp
+
+f.name.tmp <- Pf_org$feat_cols
+i <- 1
+for (s in f.name.tmp) {
+  for (j in 1:length(prevPattern)) {
+  s <- str_replace(s, pattern = prevPattern[j], replacement = newPattern[j])  
+  }
+
+  f.name.tmp[i] <- s
+  i <- i + 1
+}
+Pf_org$feat_cols <- f.name.tmp
+
+```
+
+```{r Pruning features with low replicate corr., eval= TRUE}
+
+  .Random.seed <- readRDS("../input/rand_seed.RDS")
+  # remove feature with low replicate correlation first
+  max.num.of.samples <- 10
+
+  rep.corr.cut.off <- 0.30
+  
+  NREPS <- as.integer(names(sort(table(table(Pf_org$data$TreatmentAbbrev)), 
+                                 decreasing=T)[1]))
+  Pf_org.trt <- prune.rows(Pf_org, 
+                       (Pf_org$data$TreatmentAbbrev %in%
+                            subset(ddply(Pf_org$data, 'TreatmentAbbrev', NROW), 
+                                   V1==NREPS)$TreatmentAbbrev) & (Pf_org$data$Type == "Treated"))
+  trts <- unique(Pf_org.trt)
+  feats.list <- Pf_org.trt$feat_cols
+  Px.c <- Pf_org.trt$data[,Pf_org.trt$feat_cols]
+  trts <- unique(Pf_org.trt$data$Treatment)
+  vlss <- c()
+  
+  for (rp in 1:max.num.of.samples) {
+    samps1 <- c()
+    samps2 <- c()
+    
+    for (trt in trts) {
+      idx <- which(Pf_org.trt$data$Treatment %in% trt)
+      sm.size <- ceiling(length(idx)/2)
+      samp1 <- sample(idx, sm.size, replace = FALSE)
+      samp2 <- setdiff(idx, samp1)
+      samps1 <- c(samps1, rep(samp1, length(samp2)))  
+      samps2 <- c(samps2, rep(samp2, length(samp1)))  
+    }
+    
+    vls <- c()
+    for (f in feats.list) {
+      vls <- c(vls, cor(Px.c[samps1, f], Px.c[samps2, f]))
+    }
+    
+    vlss <- rbind(vlss, vls)
+  }
+  
+  vls <- apply(vlss, 2, median)
+  feat.rep <- data.frame(vls)
+  ord <- order(feat.rep, decreasing = TRUE)
+  x <- feat.rep[ord, ]
+  x[is.na(x)] <- 0
+  x <- as.data.frame(x)
+  row.names(x) <- feats.list[ord]
+  row.names(feat.rep) <- feats.list
+  
+  feat.keep <- feats.list[feat.rep >= rep.corr.cut.off]
+  feat.keep <- feat.keep[which(!is.na(feat.keep))]
+  
+  print(length(feat.keep))
+  
+  Pf_org$feat_cols <- feat.keep
+  Pf_org$data <- Pf_org$data[,c(Pf_org$feat_cols, Pf_org$factor_cols)]
+  Pf_org.trt$feat_cols <- feat.keep
+  Pf_org.trt$data <- Pf_org.trt$data[,c(Pf_org.trt$feat_cols, Pf_org.trt$factor_cols)]
+
+```
+
+```{r Feature Selection, eval = TRUE}
+
+# if load.feat.list is set to 'True', pre-computed feature list (path is stored at feat.list.path) would be loaded, otherwise, the algorithm starts from scratch 
+load.feat.list <- T
+initial.feats <- c("Cells_AreaShape_Area", "Cells_AreaShape_Count")
+thr.feat.regression <- 0.5
+max.res.corr.cutoff <- 0.3
+max.res.strength.cutoff <- 0.1    # strength = l1 norm
+feat.list.path <- "../results/master/selected_features/selected.features.csv"
+
+if (load.feat.list) {
+  selected.features <- as.vector(read.csv(feat.list.path)$x)
+} else {
+  # iterative feature selection (Fischer 2015 -- modified)
+  trts <- unique(Pf_org.trt)
+  feats.list <- Pf_org$feat_cols
+  Px.c <- Pf_org.trt$data[,Pf_org.trt$feat_cols]
+  trts <- unique(Pf_org.trt$data$Treatment)
+  samps1 <- c()
+  samps2 <- c()
+  
+  for (trt in trts) {
+    idx <- which(Pf_org.trt$data$Treatment %in% trt)
+    sm.size <- ceiling(length(idx)/2)
+    samp1 <- sample(idx, sm.size, replace = FALSE)
+    samp2 <- setdiff(idx, samp1)
+    samps1 <- c(samps1, rep(samp1, length(samp2)))  
+    samps2 <- c(samps2, rep(samp2, length(samp1)))  
+  }
+  
+  selected.features <- initial.feats
+  
+  lx <- length(setdiff(feats.list, selected.features))
+  samps1.u <- unique(samps1)
+  samps2.u <- unique(samps2)
+  P.1.u <- (Px.c[samps1.u, ])
+  P.1 <- (Px.c[samps1, ])
+  P.2.u <- (Px.c[samps2.u, ])
+  P.2 <- (Px.c[samps2, ])
+  nrms <- c()
+  
+  for (i in 1:lx) {
+    remaining.features <- setdiff(feats.list, selected.features)
+    crs <- c()
+  
+    resp1 <- as.matrix(P.1.u[, remaining.features])
+    regr1 <- P.1.u[ ,selected.features]
+    resp.all1 <- as.matrix(P.1[, remaining.features])
+    regr.all1 <- P.1[, selected.features]
+  
+    resp2 <- as.matrix(P.2.u[, remaining.features])
+    regr2 <- P.2.u[ ,selected.features]
+    resp.all2 <- as.matrix(P.2[, remaining.features])
+    regr.all2 <- P.2[, selected.features]
+    
+    regr1 <- as.matrix(regr1)
+    regr2 <- as.matrix(regr2)
+    
+    regr <- rbind(regr1, regr2)
+    resp <- rbind(resp1, resp2)
+    
+    cr <- cor(Px.c[, remaining.features], Px.c[, selected.features], method = "pearson")
+    mm <- c()
+    for (f in remaining.features) {
+      mx.ind <- as.vector(which(abs(cr[f, ]) >= thr.feat.regression))
+      if (length(mx.ind) < 1) {
+        r1 <- as.matrix(resp.all1)[, f]
+        r2 <- as.matrix(resp.all2)[, f]
+        mm <- c(mm, cor(r1, r2, method = "pearson"))
+      } else {
+        regrx <- as.matrix(cbind(regr[, mx.ind], rep(1, nrow(as.matrix(regr)))))
+                  
+        coeffs <- ginv(t(regrx) %*% regrx) %*% t(regrx) %*% as.matrix(resp[, f])
+        
+        regr.all1x <- as.matrix(cbind(as.matrix(regr.all1)[,mx.ind], rep(1, nrow(as.matrix(regr.all1)))))
+        predics1 <- regr.all1x %*% as.matrix(coeffs)
+        r1 <- as.matrix(resp.all1)[, f] - predics1
+    
+        regr.all2x <- as.matrix(cbind(as.matrix(regr.all2)[,mx.ind], rep(1, nrow(as.matrix(regr.all2)))))
+        predics2 <- regr.all2x %*% as.matrix(coeffs)
+        r2 <- as.matrix(resp.all2)[, f] - predics2
+        
+        mm <- c(mm, cor(r1, r2, method = "pearson"))
+      }
+    }
+  
+     f <- remaining.features[which.max(mm)]
+     mx.ind <- as.vector(which(abs(cr[f, ]) >= thr.feat.regression))
+      if (length(mx.ind) < 1) {
+        r1 <- as.matrix(resp.all1)[, f]
+        r2 <- as.matrix(resp.all2)[, f]
+      } else {
+        regrx <- as.matrix(cbind(regr[, mx.ind], rep(1, nrow(as.matrix(regr)))))
+                  
+        coeffs <- ginv(t(regrx) %*% regrx) %*% t(regrx) %*% as.matrix(resp[, f])
+        
+        regr.all1x <- as.matrix(cbind(as.matrix(regr.all1)[,mx.ind], rep(1, nrow(as.matrix(regr.all1)))))
+        predics1 <- regr.all1x %*% as.matrix(coeffs)
+        r1 <- as.matrix(resp.all1)[, f] - predics1
+    
+        regr.all2x <- as.matrix(cbind(as.matrix(regr.all2)[,mx.ind], rep(1, nrow(as.matrix(regr.all2)))))
+        predics2 <- regr.all2x %*% as.matrix(coeffs)
+        r2 <- as.matrix(resp.all2)[, f] - predics2
+      }  
+    
+    strn <- sum(abs(r1)) + sum(abs(r2))
+    
+    if (strn > max.res.strength.cutoff) {
+      if (max(mm) < max.res.corr.cutoff) {
+        break
+      }
+  
+      selected.features <- c(selected.features, f)  
+      print(f)
+      print(max(mm))
+      print("------------------------------")
+      plot(density(mm), xlab = "Replicate Correlation of remaining feature residues", main = "", xlim = c(-0.5, 0.6), ylim = c(0, 20))
+      
+    } else {
+      feats.list <- setdiff(feats.list, c(f))
+    }
+  }
+
+  saveRDS(selected.features, "../results/master/selected_features/selected.features.rds")
+  write.csv(selected.features, "../results/master/selected_features/selected.features.csv")
+}
+
+Pf_org.org <- Pf_org
+Pf_org$data <- Pf_org$data[, c(selected.features, Pf_org$factor_cols)]
+Pf_org$feat_cols <- selected.features  
+
+```
+
+```{r Hit Selection (Hits being ORFs with a reproducible profile), eval=TRUE}
+
+# filtering out treatments which have score less than 99% when their sequence is matched against the intended gene trancripts (both nucleotide and protein sequences are considered)
+matching.per.table <- readRDS("../results/master/ORFs_sequence_matching_transcripts_percentage/matching.per.table.rds")
+leg.orfs <- matching.per.table %>% dplyr::filter(Nuc..Match.. > 99 & Prot..Match.. > 99) %>% dplyr::select(one_of("Treatment")) %>% as.matrix() %>% as.vector()
+Pf_org$data <- Pf_org$data %>% dplyr::filter(Treatment %in% leg.orfs | Type != "Treated")
+
+# applying PCA
+nzv_cols <- prune.feats.nzv(Pf_org, get.nzv=T)
+Pf_org.pr <- prune.feats.nzv.apply(Pf_org, nzv_cols)
+model <- pca(Pf_org.pr, .99, scale=TRUE, get.proj=T)
+Pf <- pca.apply(Pf_org.pr, model)
+
+# selecting treated samples 
+var.name <- sprintf("sim_%s_q50", cor_type)
+NREPS <- as.integer(names(sort(table(table(Pf_org$data$TreatmentAbbrev)), 
+                               decreasing=T)[1]))
+Pf_org.trt <- prune.rows(Pf_org, 
+                     (Pf_org$data$TreatmentAbbrev %in%
+                          subset(ddply(Pf_org$data, 'TreatmentAbbrev', NROW), 
+                                 V1==NREPS)$TreatmentAbbrev) & (Pf_org$data$Type == "Treated"))
+Pf.trt <- prune.rows(Pf, 
+                     (Pf$data$TreatmentAbbrev %in%
+                          subset(ddply(Pf$data, 'TreatmentAbbrev', NROW), 
+                                 V1==NREPS)$TreatmentAbbrev) & (Pf$data$Type == "Treated"))
+Pf.trt$data <- Pf.trt$data[!str_detect(Pf.trt$data$Treatment, "mismatch"),]
+
+# computing replicate correlation
+Pf.trt.trt <- qualitymeas(Pf.trt,
+                          metacols = c('Treatment', 'Pathway'),
+                          cmpfunc = cor_type,
+                          summarize.quantiles = TRUE)
+
+# collapsing the replicates of each treatment, by taking their average feature-wise
+Pf.trt.collapsed <- wtavg(Pf.trt, metacols = c('Treatment', 'Pathway', 'TreatmentAbbrev', 'Type', 'Gene', 'AlleleDesc'), type='eqwt')
+
+# repeating the same process for untreated (neg. control) samples
+Pf.untrt <- prune.rows(Pf, (Pf$data$Type == "Untreated"))
+Pf.untrt.cor <- qualitymeas(Pf.untrt,
+                          metacols = c("Well"),
+                          cmpfunc = cor_type,
+                          summarize.quantiles = TRUE)
+Pf.collapsed.well <- wtavg(Pf, metacols = c('Well', 'Treatment', 'Pathway'), type='eqwt')
+
+# selecting the hits based on rep. corr.
+cr <- Pf.trt$data[,Pf.trt$feat_cols] %>% t %>% cor
+diff.rep <- outer(Pf.trt$data$Well, Pf.trt$data$Well, function(x, y) return(x != y))
+saveRDS(cr[diff.rep] %>% as.matrix() %>% as.vector(), "null.hit.selection.rds")
+nulls.samp.rep.corr <- cr[diff.rep] %>% as.matrix() %>% as.vector() 
+thr.hit.sel <- nulls.samp.rep.corr %>% quantile(., significance)
+
+strongs.indx.General <<- Pf.trt.trt$data[which(Pf.trt.trt$data[[var.name]] > thr.hit.sel & 
+                                          !str_detect(Pf.trt.trt$data$Treatment, "mismatch")), ]$Treatment
+print(sprintf("Number of treatments with high rep. corr : %d", length(strongs.indx.General)))
+
+# filtering out hits which are close to neg. control samples 
+indx <- which(Pf.collapsed.well$data$Treatment %in% strongs.indx.General)
+x <- Pf.collapsed.well$data[indx, Pf.collapsed.well$feat_cols]
+y <- Pf.collapsed.well$data[which(Pf.collapsed.well$data$Treatment == "EMPTY_" & !str_sub(Pf.collapsed.well$data$Well, 1, 1) %in% c("a", "p") & !str_sub(Pf.collapsed.well$data$Well, 2, 3) %in% c("01", "24")), Pf.collapsed.well$feat_cols]
+dst <- dist(rbind(x, y)) %>% as.matrix()
+dst.x.y <- dst[1:NROW(x), (NROW(x) + 1):(NROW(x) + NROW(y))]
+dst.y <- dst[(NROW(x) + 1):(NROW(x) + NROW(y)), (NROW(x) + 1):(NROW(x) + NROW(y))]
+trt.dst.to.untrt <- apply(dst.x.y, 1, mean)
+diag(dst.y) <- NA
+untrt.dst.to.untrt <- apply(dst.y, 1, function(x) mean(x, na.rm = T))
+strongs.indx.General <- (Pf.collapsed.well$data$Treatment[indx])[which(trt.dst.to.untrt > quantile(untrt.dst.to.untrt, 0.95))]
+  
+print(sprintf("Number of hits (also distant from the neg. control) : %d", length(strongs.indx.General)))
+
+# saving useful data matrices
+Pf.collapsed <- wtavg(Pf, metacols = c('Treatment', 'Pathway'), type='eqwt')
+Pf.strong <- Pf.trt.collapsed$data[which(Pf.trt.collapsed$data$Treatment %in% strongs.indx.General), ]
+Pf.treatments <- Pf.strong[,"Treatment"]
+Px.strong <- Pf.strong[,3:dim(Pf.strong)[2]]
+row.names(Px.strong) <- Pf.strong[,"Treatment"]
+Px <- Px.strong
+write.csv(x = Pf.strong,  file = "Pf_strong.csv")
+saveRDS(Pf.strong, file = "Pf_strong.rds")
+saveRDS(Pf.trt, file = "Pf_trt.rds")
+saveRDS(Pf.collapsed.well, file = "Pf_collapsed.rds")
+saveRDS(Pf.untrt.cor, file = "Pf_untrt_rep_cor.rds")
+saveRDS(Pf.trt.trt, file = "Pf_trt_rep_cor.rds")
+Pf.trt.strong.collapsed <- wtavg(Pf.trt, metacols = c('Treatment', 'Pathway', 'Gene', 'Type', 'TreatmentAbbrev', 'AlleleDesc', 'ISMUTANT', 'Activator.Inhibitor'), type='eqwt')
+Pf.trt.strong.collapsed$data <- Pf.trt.strong.collapsed$data[Pf.trt.strong.collapsed$data$Treatment %in% strongs.indx.General, ]
+saveRDS(Pf.trt.strong.collapsed, file = "Pf_trt_strong_collapsed.rds")
+write.csv(x = Pf.trt.strong.collapsed$data, file = "Pf_strong_mutants_included.csv")
+
+Pf_org.trt.collapsed <- wtavg(Pf_org.trt, metacols = c('Treatment', 'Pathway'), type='eqwt')
+Pf_org.org.collapsed <- wtavg(Pf_org.org, metacols = c('Treatment', 'Pathway'), type='eqwt')
+
+Pf_org.collapsed <- wtavg(Pf_org, metacols = c('Well', 'Treatment', 'Pathway'), type='eqwt')
+Pf_org.strong <- Pf_org.trt.collapsed$data[which(Pf_org.trt.collapsed$data$Treatment %in% strongs.indx.General), ]
+Px_org.strong <- Pf_org.strong[,3:dim(Pf_org.strong)[2]]
+Px_org <- Px_org.strong
+
+```
+
+```{r Calculating the z-scores based on negative controls in each plate, eval = TRUE}
+
+norm.center <- mean
+norm.scale <- sd
+
+Px.org.org.ta <- Pf_org.org$data[,]
+
+for (p in unique(Pf_org.org$data$Plate)) {
+    Px.org.ta.untrt.p <- Pf_org.org$data[Pf_org.org$data$Type == "Untreated" & Pf_org.org$data$Plate == p, Pf_org.org$feat_cols]
+    mn <- apply(Px.org.ta.untrt.p, MARGIN = 2, FUN = norm.center)
+    md <- apply(Px.org.ta.untrt.p, MARGIN = 2, FUN = norm.scale)
+    Px.org.org.ta[Pf_org.org$data$Plate == p, Pf_org.org$feat_cols] <- scale(Px.org.org.ta[Pf_org.org$data$Plate == p, Pf_org.org$feat_cols], center = mn, scale = md)
+}
+
+Pf_org.org.rep <- Pf_org.org
+Pf_org.org.rep$data <- Px.org.org.ta
+Pf_org.org.rep.collapsed <- wtavg(Pf_org.org.rep, metacols = c('Treatment', 'Pathway'), type='eqwt')
+
+Px.org.all.ta.sc <- Pf_org.org.rep.collapsed$data[,Pf_org.org.rep.collapsed$feat_cols]
+Px.org.org.ta.sc <- Px.org.all.ta.sc
+trt.ta <- Pf_org.org.rep.collapsed$data$Treatment
+
+```
+
+```{r Clustering of ORFs - Major clusters stored in cls variable, eval=TRUE}
+
+# minimum number of members of a cluster
+min.cluster.size <- 2
+
+# depth to cut the dendrogram (calculated based off of an stability analysis in a separate file)
+depth.to.cut <- 1 - 0.522
+
+df.to.use <- Pf.trt.collapsed
+Px <- data.frame(df.to.use$data %>% dplyr::filter(Treatment %in% strongs.indx.General) %>% dplyr::select(starts_with("PC")))
+trts.Px <- as.character((df.to.use$data %>% dplyr::filter(Treatment %in% strongs.indx.General))$Treatment)
+rownames(Px) <- trts.Px
+
+cr <- cor(t(Px), method = cor_type)
+saveRDS(cr, "cr.rds")
+
+dsts <- as.dist(1 - cr)
+hcl_0 <- hclust(d=dsts, method = clustering_method)
+ct <- cutree(hcl_0, h = depth.to.cut)
+ct.cls <- ct
+
+cls <- c()
+cl.num <- max(ct)
+
+for (i in 1:cl.num) {
+  trts <- names(which(ct == i))
+  if (length(trts) >= min.cluster.size) {
+    cls <- c(cls, list(trts))
+  }
+}
+
+print(cls)
+
+system("mkdir -p ../results/master/Initial_analysis")
+save.image("../results/master/Initial_analysis/Initial_analysis_workspace.RData")
+
+```

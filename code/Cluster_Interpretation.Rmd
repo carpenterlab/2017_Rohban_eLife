@@ -1,0 +1,530 @@
+```{r Fetch the CP processed per-cell data from database, eval = TRUE}
+
+library("knitr")
+
+## Note : cl.ind could be set outside of this scope, if not, set it below
+if (!exists("cl.ind")) {
+  cl.ind <- 1         ## cluster id
+}
+
+## loading initial analysis
+use.cache <- T
+workspace.file <- "../results/master/Initial_analysis/Initial_analysis_workspace.RData"
+
+if (use.cache) {
+  if (file.exists(workspace.file)) {
+    load(workspace.file)
+  } else {
+    knit("Initial_analysis.Rmd")
+    load(workspace.file)
+  }
+} else {
+  knit("Initial_analysis.Rmd")
+  load(workspace.file)
+}
+
+library("readr")
+library("plyr")
+library("dplyr")
+library("xtable")
+library("corrplot")
+source("../aux_files/per.cell.image.collection.R")
+source("../aux_files/pdf_cat_A_aux.R")
+
+print(sprintf("Working on cluster %d", cl.ind))
+
+all.sites <- TRUE
+dbname <- "TargetAccelerator"
+host <- "localhost"
+user <- "root"
+password <- "password"
+port <- 3306
+
+z.thr <- 0                   # use all features with abs. z-score > z.thr in the analysis (0 results in all being used)
+z.thr1 <- 2.0                # used for histogram plotting
+cat.sig.bar.thr <- 1.0       # the threshold to filter cell categories
+k <- 20                      # number of clusters
+sample.size <- 6             # number of tiles per class
+window.size <- 95            # size of window around the object
+num.sig.to.show <- 10        # number of top features to show in each category
+filter.insig.cats <- TRUE    # filter insignificant categories 
+mention.channel <- TRUE      # mention channel name on top of each panel
+scale.bar.um.per.pixel <- 0.656
+scale.bar.len <- 60
+
+clst.desc <- sprintf("Cluster %d", cl.ind)
+
+cache.exist <- file.exists(sprintf("../cache/Cluster_%d_%s_db.rds", cl.ind, clst.desc))
+
+if (!cache.exist) {
+  feats <- Pf_org$feat_cols
+  feats <- feats[which(!str_detect(feats, "mad_"))]
+  
+  distinc.feats <- setdiff(feats, "Cells_AreaShape_Count")
+  wells <- Pf_org$data %>% dplyr::filter(Treatment %in% cls[[cl.ind]]) %>% dplyr::select(one_of("Well")) %>% unique() %>% as.matrix() %>% as.vector()
+  trt.wells <- wells
+  untrt.wells <- Pf_org$data %>% dplyr::filter(Type == "Untreated") %>% dplyr::select(one_of(c("Well"))) %>% unique %>% as.matrix() %>% as.vector()
+  wells <- c(untrt.wells, wells)
+  
+  pst.fx <- "("
+  for (wl in wells) {
+    if (wl != wells[length(wells)]) {
+      pst.fx <- paste(pst.fx, sprintf("'%s',", wl))  
+    } else {
+      pst.fx <- paste(pst.fx, sprintf("'%s')", wl))
+    }
+  }
+  
+  if (length(which(distinc.feats == "Cells_AreaShape_Area")) == 0) {
+    distinc.feats <- c(distinc.feats, "Cells_AreaShape_Area")
+  }
+  if (length(which(distinc.feats == "Nuclei_Intensity_IntegratedIntensity_DNA")) == 0) {
+    distinc.feats <- c(distinc.feats, "Nuclei_Intensity_IntegratedIntensity_DNA")
+  }
+  pre.fx <- ""
+  distinc.feats <- distinc.feats[!str_detect(distinc.feats, "mad_")]
+  for (ft in distinc.feats) {
+    ft1 <- str_replace_all(ft, "DNA", "Hoechst")
+    ft1 <- str_replace_all(ft1, "ER", "ERSyto")
+    ft1 <- str_replace_all(ft1, "RNA", "ERSytoBleed")
+    ft1 <- str_replace_all(ft1, "AGP", "PhGolgi")
+    
+    if (ft != distinc.feats[length(distinc.feats)]) {
+      pre.fx <- paste(pre.fx, sprintf("O.%s,", ft1))  
+    } else {
+      pre.fx <- paste(pre.fx, sprintf("O.%s", ft1))
+    }
+  }
+  
+  img.org <- list()
+  
+  for (organelles in c("Cells", "Nuclei", "Cytoplasm")) {
+    db <- 
+    dplyr::src_mysql(dbname = dbname, 
+                     host = host,
+                     user = user,
+                     password = password, port = port)
+    
+    qu <- sprintf("select O.*, I.Image_Metadata_GeneSymbol, I.Image_Metadata_AlleleDesc, I.Image_Metadata_Plate from SIGMA2_Pilot_2013_10_11_Analysis_Per_Image as I
+                                 inner join SIGMA2_Pilot_2013_10_11_Analysis_Per_%s as O on I.ImageNumber = O.ImageNumber where I.Image_Metadata_Well in %s and I.Image_Metadata_Plate != '41749'", organelles, pst.fx)
+    img.db <- 
+      db %>%
+      dplyr::tbl(dplyr::sql(qu)) %>%
+      dplyr::collect(., n = Inf)
+    
+    u <- colnames(img.db) 
+    u <- str_replace_all(u, "PhGolgi", "AGP")
+    u <- str_replace_all(u, "ERSytoBleed", "RNA")
+    u <- str_replace_all(u, "ERSyto", "ER")
+    u <- str_replace_all(u, "Hoechst", "DNA")
+    u <- str_replace_all(u, sprintf("%s_Number_Object_Number", organelles), "ObjectNumber")
+    colnames(img.db) <- u
+    
+    distinc.feats.rest <- intersect(distinc.feats, colnames(img.db))
+    keep.row <- apply(img.db[,distinc.feats.rest], 1, function(x) all(!is.na(x)))
+    img.db <- img.db[which(keep.row), ]
+    img.org <- c(img.org, list(img.db))
+  }
+  
+  img.db.1.2 <- plyr::join(img.org[[1]], img.org[[2]], by = c("ImageNumber", "ObjectNumber"), type = "inner")
+  img.db.1.2.3 <- plyr::join(img.db.1.2, img.org[[3]], by = c("ImageNumber", "ObjectNumber"), type = "inner")
+  img.db <- img.db.1.2.3[, c("ImageNumber", "ObjectNumber", "Image_Metadata_AlleleDesc", "Image_Metadata_Plate", "Image_Metadata_GeneSymbol", distinc.feats)]
+  keep.row <- apply(img.db[,distinc.feats], 1, function(x) all(!is.na(x)))
+  img.db <- img.db[which(keep.row), ]
+    
+  if (!dir.exists("../cache")) {
+    system("mkdir -p ../cache")
+  }
+  saveRDS(img.db, sprintf("../cache/Cluster_%d_%s_db.rds", cl.ind, clst.desc))
+}
+
+.Random.seed <- readRDS("../input/rand_seed2.rds")
+
+```
+
+```{r reading profiles and put them together, eval= TRUE}
+
+img <- readRDS(sprintf("../cache/Cluster_%d_%s_db.rds", cl.ind, clst.desc))
+
+u <- colnames(img) 
+u <- str_replace_all(u, "PhGolgi", "AGP")
+u <- str_replace_all(u, "ERSytoBleed", "RNA")
+u <- str_replace_all(u, "ERSyto", "ER")
+u <- str_replace_all(u, "Hoechst", "DNA")
+colnames(img) <- u
+
+distinc.feats <- colnames(img)
+distinc.feats <- distinc.feats[!str_detect(distinc.feats, "Image") & !str_detect(distinc.feats, "Object")]
+
+```
+
+```{r Density plots for comparison of two sets of data, eval = TRUE}
+
+feat.groups <- c()
+graphics.off()
+quartz(width = 15, height = 12)
+feat.groups.ex <- c(feat.groups, list("Nuclei_Intensity_IntegratedIntensity_DNA"))
+
+for (i in length(feat.groups.ex)) {
+  feat.x.q <- feat.groups.ex[[i]][1]
+  if (is.null(feat.x.q)) {
+    next
+  }
+  if (feat.x.q == "Cells_AreaShape_Count") {
+    next
+  }
+  feat.x <- feat.x.q
+  v1 <- img %>% dplyr::filter(Image_Metadata_GeneSymbol == "EMPTY") %>% dplyr::select(one_of(c(feat.x))) %>% as.matrix() %>% as.vector()
+  v2 <- img %>% dplyr::filter(Image_Metadata_GeneSymbol != "EMPTY") %>% dplyr::select(one_of(c(feat.x))) %>% as.matrix() %>% as.vector()
+  plts.med <- c()
+  plts.sd <- c()
+  v1 <- c()
+  v2 <- c()
+  
+  for (pl in unique(img$Image_Metadata_Plate)) {
+    nrm <- img %>% dplyr::filter(Image_Metadata_GeneSymbol == "EMPTY" & Image_Metadata_Plate == pl) %>% dplyr::select(one_of(c(feat.x))) %>% as.matrix() %>% as.vector() %>% (function(x) return(c(median(x), mad(x))))
+    
+    v1 <- c(v1, img %>% dplyr::filter(Image_Metadata_GeneSymbol == "EMPTY" & Image_Metadata_Plate == pl) %>% dplyr::select(one_of(c(feat.x))) %>% as.matrix() %>% as.vector() %>% (function(x) return((x - nrm[1])/nrm[2])))
+    v2 <- c(v2, img %>% dplyr::filter(Image_Metadata_GeneSymbol != "EMPTY" & Image_Metadata_Plate == pl) %>% dplyr::select(one_of(c(feat.x))) %>% as.matrix() %>% as.vector() %>% (function(x) return((x - nrm[1])/nrm[2])))
+  }
+  
+  d1 <- density(v1)
+  d2 <- density(v2)
+  mn <- min(v1, v2)
+  
+  bw <- 0.05
+  lim <- max(quantile(abs(v1), 0.99), quantile(abs(v2), 0.99))
+  hst <- hist(v1[v1 < lim - bw], breaks = seq(from = mn, to = lim, by = bw), probability = T)
+  hst2 <- hist(v2[v2 < lim - bw], breaks = seq(from = mn, to = lim, by = bw), probability = T)
+  mxy <- max(hst$density, hst2$density)
+    
+  hist(v1[v1 < lim - bw], breaks = seq(from = mn, to = lim, by = bw), xlim = c(mn, lim), ylim = c(0, mxy * 1.1), probability = T, col = rgb(1,0,0,0.5), xlab = feat.x.q, ylab = "Density", main = "", border = rgb(1,0,0,0.5))
+  hist(v2[v2 < lim - bw], breaks = seq(from = mn, to = lim, by = bw), xlim = c(mn, lim), ylim = c(0, mxy * 1.1), probability = T, col = rgb(0,0,1,0.5), add = TRUE, border = rgb(0,0,1,0.5))
+  legend("topright", legend = c("Untreated", clst.desc), col = c(rgb(1,0,0,0.5), rgb(0,0,1,0.5)), lwd = 3, cex = 1.2)
+  dev.print(device = pdf, sprintf("%s_Histogram.pdf", feat.x.q))
+}
+
+```
+
+```{r Extract different modes of phenotype and outputing object id of the most distinct ones, eval=TRUE}
+
+graphics.off()
+quartz(width = 10, height = 6)
+
+feat.lst <- colnames(img) 
+feat.lst <- feat.lst[str_detect(feat.lst, "Cells_") |  str_detect(feat.lst, "Nuclei_") | str_detect(feat.lst, "Cytoplasm_")]
+
+img.clst <- c()
+img.empt <- c()
+empt.meta <- c()
+clst.meta <- c()
+lbls.clst <- c()
+lbls.empt <- c()
+plts.lb.empt <- c()
+plts.lb.clst <- c()
+feat.lst <- setdiff(feat.lst, "Cells_AreaShape_Count")
+
+for (plt in unique(img$Image_Metadata_Plate)) {
+  img.empt.plt <- img %>% dplyr::filter(Image_Metadata_GeneSymbol == "EMPTY" & Image_Metadata_Plate == plt) %>%
+    dplyr::select(one_of(feat.lst))
+  mn <- apply(img.empt.plt, 2, mean)
+  sdv <- apply(img.empt.plt, 2, sd)
+  img.clst.plt <- img %>% dplyr::filter(Image_Metadata_GeneSymbol != "EMPTY" & Image_Metadata_Plate == plt) %>%
+    dplyr::select(one_of(feat.lst)) %>% scale(., center = mn, scale = sdv) %>% as.data.frame(.)
+  meta.clst.plt <- img %>% dplyr::filter(Image_Metadata_GeneSymbol != "EMPTY" & Image_Metadata_Plate == plt) %>%
+    dplyr::select(one_of(c("ImageNumber", "ObjectNumber"))) %>% as.data.frame(.)
+  
+  lbl.clst <- img %>% dplyr::filter(Image_Metadata_GeneSymbol != "EMPTY" & Image_Metadata_Plate == plt) %>%
+    dplyr::select(one_of(c("Image_Metadata_GeneSymbol", "Image_Metadata_AlleleDesc"))) %>% dplyr::mutate(Treatment = paste(Image_Metadata_GeneSymbol, Image_Metadata_AlleleDesc, sep = "_")) %>% dplyr::select(one_of(c("Treatment"))) %>%  unlist() %>% as.vector()
+  
+  img.clst <- rbind(img.clst, img.clst.plt)
+  clst.meta <- rbind(clst.meta, meta.clst.plt)
+  
+  img.empt.plt <- img %>% dplyr::filter(Image_Metadata_GeneSymbol == "EMPTY" & Image_Metadata_Plate == plt) %>%
+    dplyr::select(one_of(feat.lst)) %>% scale(., center = mn, scale = sdv) %>% as.data.frame(.)
+  meta.empt.plt <- img %>% dplyr::filter(Image_Metadata_GeneSymbol == "EMPTY" & Image_Metadata_Plate == plt) %>%
+    dplyr::select(one_of(c("ImageNumber", "ObjectNumber"))) %>% as.data.frame(.)
+  empt.meta <- rbind(empt.meta, meta.empt.plt)
+  img.empt <- rbind(img.empt, img.empt.plt)
+  lbl.empt <- rep("EMPTY_", NROW(img.empt.plt))
+  
+  lbls.clst <- c(lbls.clst, lbl.clst)
+  lbls.empt <- c(lbls.empt, lbl.empt)
+  plts.lb.clst <- c(plts.lb.clst, rep(plt, NROW(img.clst.plt)))
+  plts.lb.empt <- c(plts.lb.empt, rep(plt, NROW(img.empt.plt)))
+}
+
+img.all <- rbind(img.empt, img.clst)
+plts.all <- c(plts.lb.empt, plts.lb.clst)
+meta.all <- rbind(empt.meta, clst.meta)
+lbl <- c(rep(0, NROW(img.empt)), rep(1, NROW(img.clst)))
+lbl2 <- c(lbls.empt, lbls.clst)
+
+img.all <- img.all %>% as.matrix()
+kmc <- kmeans(img.all, k, iter.max = 5000, nstart = 10)
+
+par(mar = c(4, 4, 5, 5))
+h1 <- hist((kmc$cluster[lbl == 0]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T)
+h2 <- hist((kmc$cluster[lbl == 1]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T) 
+
+cat.to.keep <- 1:k
+
+if (length(cls[[cl.ind]]) == 1) {
+  ord.cat <- order((h2$density - h1$density) , decreasing = T)
+
+} else {
+  vv <- c()
+  for (trt in cls[[cl.ind]]) {
+    h1.s <- hist((kmc$cluster[lbl2 == "EMPTY_"]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+         probability = T)$density
+    h2.s <- hist((kmc$cluster[lbl2 == trt]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+         probability = T)$density          
+    vv <- rbind(vv, (h2.s - h1.s))
+  }
+  vv.sd <- apply(vv, 2, sd)
+  vv.sd[vv.sd == 0] <- 1
+  vv.mn <- apply(vv, 2, mean)
+  
+  ord.cat <- order(vv.mn/vv.sd, decreasing = T)
+  cat.sig.bar <- abs(vv.mn[ord.cat]/vv.sd[ord.cat])
+  barplot(cat.sig.bar, names.arg = 1:k, xlab = "cell category index", ylab = "abs mean/sd of density difference from neg. control")
+  if (filter.insig.cats) {
+    cat.to.keep <- which(cat.sig.bar > cat.sig.bar.thr)  
+  } 
+  dev.print(device = pdf, sprintf("ctrl_%d_hits.pdf", cl.ind))
+}
+
+centers <- c()
+kmc.cls <- kmc$cluster * 0
+for (i in 1:k) {
+  kmc.cls[kmc$cluster == ord.cat[i]] <- i
+  centers <- rbind(centers, kmc$centers[ord.cat[i],])
+}
+kmc$cluster <- kmc.cls
+kmc$centers <- centers
+
+cntr <- kmc$centers
+
+mn.h <- 0
+mx.h <- max(h1$density, h2$density)
+h1 <- hist((kmc$cluster[lbl == 0]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T, col = rgb(1, 0, 0, 0.5), xlim = c(0.5, k + 0.5), ylim = c(mn.h, mx.h * 1.5), xlab = "cell category index", 
+           ylab = "Density", main = "")
+h2 <- hist((kmc$cluster[lbl == 1]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T, col = rgb(0, 0, 1, 0.5), add = T)
+cat.to.keep2 <- which(!(h1$density < 0.005 & h2$density < 0.005))
+
+legend("topleft", col = c("red", "blue"), legend = c("Untreated", clst.desc), lwd = 3)
+dev.print(device = pdf, sprintf("dist_feat_cells_clust_%d_hits.pdf", cl.ind))
+
+for (pl in unique(Pf_org$data$Plate_)) {
+  h1.s <- hist((kmc$cluster[lbl2 == "EMPTY_"]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+         probability = T, col = rgb(1, 0, 0, 0.5), xlim = c(0.5, k + 0.5), ylim = c(mn.h, mx.h * 1.1), xlab = "cell category index", 
+         ylab = "Density", main = "")
+  h2.s <- hist((kmc$cluster[lbl2 != "EMPTY_" & plts.all == pl]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+         probability = T, col = rgb(0, 0, 1, 0.5), add = T)
+  legend("topleft", col = c("red", "blue"), legend = c("Untreated", sprintf("%s - plate : %s", clst.desc, pl)), lwd = 3)
+  dev.print(device = pdf, sprintf("dist_feat_cells_%s_%d_%s_hits.pdf", clst.desc, cl.ind, pl))
+}
+
+df.profiles <- c()
+
+if (length(cls[[cl.ind]]) > 1) {
+  for (trt in cls[[cl.ind]]) {
+    h1.s <- hist((kmc$cluster[lbl2 == "EMPTY_"]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T)
+    h2.s <- hist((kmc$cluster[lbl2 == trt]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T)          
+    mn.h.s <- 0
+    mx.h.s <- max(h1.s$density, h2.s$density)
+    h1.s <- hist((kmc$cluster[lbl2 == "EMPTY_"]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T, col = rgb(1, 0, 0, 0.5), xlim = c(0.5, k + 0.5), ylim = c(mn.h.s, mx.h.s * 1.5), xlab = "cell category index", 
+           ylab = "Density", main = "")
+    h2.s <- hist((kmc$cluster[lbl2 == trt]), breaks = seq(from = 0.5, to = k + 0.5, by = 1), 
+           probability = T, col = rgb(0, 0, 1, 0.5), add = T)
+    legend("topleft", col = c("red", "blue"), legend = c("Untreated", trt), lwd = 3)
+    dev.print(device = pdf, sprintf("dist_feat_cells_%s_%d_hits.pdf", trt, cl.ind))
+    df.profiles <- rbind(df.profiles, h2.s$density - h1.s$density)
+  }
+  
+  df.profiles <- data.frame(df.profiles)
+  rownames(df.profiles) <- cls[[cl.ind]]
+  chi.dist.mt <- cor(t(df.profiles))
+  corrplot(chi.dist.mt)
+  dev.print(device = pdf, sprintf("subpopulation_profile_score_%d.pdf", cl.ind))
+  Pf.collapsed$data %>% dplyr::filter(Treatment %in% cls[[cl.ind]]) %>% (function(x) return(data.frame(x[, Pf.collapsed$feat_cols], row.names = x[,"Treatment"])[cls[[cl.ind]], ])) %>% t %>% cor %>% corrplot(.)
+  dev.print(device = pdf, sprintf("mean_profile_score_%d.pdf", cl.ind))
+}
+
+indx <- 1:k
+
+for (i in indx) {
+  ord <- order(abs(cntr[i, ]), decreasing = T)
+  par(mar = c(4, 20, 5, 5))
+  barpos <- barplot(height = as.vector(cntr[i, rev(ord[1:num.sig.to.show])]), width = 0.5, 
+          horiz = T, las = 2, cex.names = min(0.8 * 20/length(ord), 0.9), xlim = c(min(cntr[i, ord]) * 1.1, max(cntr[i, ord]) * 1.1))  
+  mtext(colnames(cntr)[rev(ord[1:num.sig.to.show])], at=barpos, las = 2, padj=1, cex = min(0.8 * 20/length(ord[1:num.sig.to.show]), 0.9), bty="o", side = 2, col = as.vector(ifelse(cntr[i, rev(ord[1:num.sig.to.show])] >= 0, "blue", "red")))
+  dev.print(device = pdf, sprintf("clust_%d_center_%d.pdf", cl.ind, i))
+}
+
+indx2 <- which((h1$density - h2$density)/h2$density > 0.10)
+
+dst.cntr <- function(x, i) {
+  u <- apply(x[,feat.lst], 1, function(u) as.vector(1 - cor(u, kmc$centers[i, feat.lst]))) 
+  return((as.vector(u)))
+}
+
+cat.to.keep <- intersect(cat.to.keep, cat.to.keep2)
+
+```
+
+```{r saving examplar images, eval=T}
+
+coeff <- 1
+
+for (i in cat.to.keep) {
+  if (sample.size == -1) {
+    v <- data.frame(img.all, meta.all, cluster = kmc$cluster, label = lbl, Class = rep("positive", length(lbl))) %>% dplyr::filter(cluster == i) %>% dplyr::mutate(dist.to.center = dst.cntr(., i)) %>% dplyr::arrange(dist.to.center) %>% dplyr::select(one_of(c("ImageNumber", "ObjectNumber", "Class"))) %>% head(.,n = max(round(NROW(.) * coeff), 1)) 
+  } else {
+    v <- data.frame(img.all, meta.all, cluster = kmc$cluster, label = lbl, Class = rep("positive", length(lbl))) %>% dplyr::filter(cluster == i) %>% dplyr::mutate(dist.to.center = dst.cntr(., i)) %>% dplyr::arrange(dist.to.center) %>% dplyr::select(one_of(c("ImageNumber", "ObjectNumber", "Class"))) %>% head(.,n = max(round(NROW(.) * coeff), 1)) %>% head(.,  min(sample.size*2, NROW(.)))
+  }
+  write_csv(v, sprintf("Cluster_%d_Phenotype_Category_%d.csv", cl.ind, i)) 
+  
+  chnls <- c("ER", "DNA", "Mito", "RNA", "AGP")
+  
+  loop.counter <- 0
+  
+  for (j in 1:NROW(v)) {
+    if (loop.counter == sample.size) {
+      break
+    }
+    
+    I.l <- get.cell.image(v$ImageNumber[j], v$ObjectNumber[j], window.size, dbname, host, user, password, port)
+    
+    if (is.null(dim(I.l[["ER"]]))) {
+        next
+    }
+    loop.counter <- loop.counter + 1
+    
+    for (chnl in chnls) {
+      I <- I.l[[chnl]]
+      I <- I * 5
+      
+      if (NROW(I) < window.size + 1 || NCOL(I) < window.size + 1) {
+        I0 <- outer(rep(0, window.size + 1), rep(0, window.size + 1), '*')
+        I0[1:NROW(I), 1:NCOL(I)] <- I
+        I <- I0
+      }
+      if (chnl == "DNA" && loop.counter == 1) {
+        I[5:10, 15:(15 + scale.bar.len -1)] <- 1
+      }
+      I[I > 1] <- 1
+      
+      writePNG(I, sprintf("%d_%d_%d_%s.png", cl.ind, i, j, chnl))
+    }
+  }
+}
+
+```
+
+```{r Putting things as a pdf together, eval=TRUE}
+
+image.fetch <- FALSE
+single.cell.image <- TRUE
+tex.file.name <- sprintf("Cluster_%dB.tex", cl.ind)
+print.latex.preamble(file.name = tex.file.name, confidential.watermark = FALSE, tag.pdf = "")
+
+pth.data <- unique(Pf_org$data %>% dplyr::filter(Treatment %in% cls[[cl.ind]]) %>% dplyr::select(one_of(c("Treatment", "Pathway", "Activator.Inhibitor"))) %>% dplyr::mutate(Activator.Inhibitor = ifelse(Activator.Inhibitor == 0, "Activator", "Inhibitor")) %>% dplyr::arrange(Treatment))
+addtorow <- list()
+addtorow$pos <- list(0, 0)
+addtorow$command <- c("& \\multicolumn{2}{c}{Expert Annotation} \\\\\n", "\\cline{2-3} Treatment & Pathway & Regulation Type \\\\\n")
+cat(file = tex.file.name, "{\\Huge \\begin{center}", append = TRUE)
+print.xtable(xtable(pth.data), file = tex.file.name, append = getOption("xtable.append", TRUE), include.rownames=FALSE, floating=FALSE, include.colnames = FALSE, add.to.row = addtorow)
+cat(file = tex.file.name, "\\end{center}", append = TRUE)
+
+cat(file = tex.file.name, sprintf("\\begin{center} {%s} \\\\ \\includegraphics[width = 32cm]{%s} \\end{center}", str_replace_all("Nuclei_Intensity_IntegratedIntensity_DNA", "_", "\\\\_"), sprintf("%s_Histogram.pdf", "Nuclei_Intensity_IntegratedIntensity_DNA")), append = TRUE)
+#sink()
+cat(file = tex.file.name, "\\vbox{ \\begin{center} {\\Huge Different categories of cells in the cluster : \\\\ } \\end{center}", append = TRUE)
+cat(file = tex.file.name, sprintf("\\begin{center} \\includegraphics[width = 40cm]{%s} \\end{center}} \n", sprintf("dist_feat_cells_clust_%d_hits.pdf", cl.ind)), append = TRUE)
+
+cat(file = tex.file.name, "\\vbox{ \\begin{center} {\\Huge Different categories of cells in single genes in the cluster : \\\\ } \\end{center}}", append = TRUE)
+
+for (trt in cls[[cl.ind]]) {
+  fl.fig.file <- sprintf("{dist_feat_cells_%s_%d_hits}.pdf", trt, cl.ind)
+  cat(file = tex.file.name, sprintf("\\begin{center} \\includegraphics[width = 40cm]{%s} \\end{center} \n", fl.fig.file), append = TRUE)
+}
+
+f1 <- 3 
+cat(file = tex.file.name, sprintf("\\pagebreak"), append = T)
+
+for (i in cat.to.keep) {
+  cat(file = tex.file.name, sprintf("\\begin{center} {\\Huge Category %d} \\end{center} \\\\", i), append = T)
+  cat(file = tex.file.name, sprintf("\\begin{center} \\includegraphics[width = 75cm]{%s} \\end{center}} #\n", sprintf("clust_%d_center_%d.pdf", cl.ind, i)), append = TRUE)
+  
+  v <- read_csv(sprintf("Cluster_%d_Phenotype_Category_%d.csv", cl.ind, i)) 
+  
+  if (single.cell.image) {
+    chnls <- c("DNA", "RNA", "ER", "Mito", "AGP")
+    for (chnl in chnls) {
+      if (mention.channel) {
+        cat(file = tex.file.name, sprintf("\\begin{center} {\\Huge %s} \\\\", chnl), append = T)  
+      } else {
+        cat(file = tex.file.name, sprintf("\\begin{center} \\\\", chnl), append = T)
+      }
+      
+      cat(file = tex.file.name, sprintf("\\begin{tabular}{%s}", str_join(rep("m{3.5cm}", f1), collapse = "")), append = T)
+      for (j in 1:sample.size) {#NROW(v)) {
+        img.fl.name <- sprintf("%d_%d_%d_%s.png", cl.ind, i, j, chnl)
+        if (j %% f1 == 0) {
+          if (j != NROW(v)) {
+            cat(file = tex.file.name, sprintf("\\cellcolor[black]{0.8} \\includegraphics[scale = 1.0]{%s} \\\\", img.fl.name), append = T)  
+          } else {
+            cat(file = tex.file.name, sprintf("\\cellcolor[black]{0.8} \\includegraphics[scale = 1.0]{%s} \\\\", img.fl.name), append = T)
+          }
+          
+        } else {
+          cat(file = tex.file.name, sprintf("\\cellcolor[black]{0.8} \\includegraphics[scale = 1.0]{%s} &", img.fl.name), append = T)
+        }
+      }
+      
+      if (NROW(v) < sample.size) {
+        for (j in (NROW(v)+1):sample.size) {
+          if (j %% f1 == 0) {
+            cat(file = tex.file.name, sprintf(" \\\\"), append = T)
+          } else {
+            cat(file = tex.file.name, sprintf(" & ", img.fl.name), append = T)
+          }
+        }
+      }
+      cat(file = tex.file.name, sprintf("\\end{tabular} \\begin{center} \n"), append = T)
+    }
+  }
+  cat(file = tex.file.name, sprintf("Note : Scale bar is %0.2f \\begin{math}{\\mu}\\end{math}m.", scale.bar.um.per.pixel * scale.bar.len), append = T)  
+  
+  if (i != cat.to.keep[length(cat.to.keep)]) {
+    cat(file = tex.file.name, sprintf("\\pagebreak"), append = T)  
+  }
+}
+
+subp.file <- sprintf("subpopulation_profile_score_%d.pdf", cl.ind)
+mean.p.file <- sprintf("mean_profile_score_%d.pdf", cl.ind)
+
+cat(file = tex.file.name, "}\\end{document}", append = TRUE)
+
+system(command=paste("xelatex --interaction=nonstopmode", basename(tex.file.name)))
+system("mkdir -p ../results/master/Clusters/Supportive_typeB")
+system(sprintf("cp %s ../results/master/Clusters", sprintf("Cluster_%dB.pdf", cl.ind)))
+
+```
+
+```{r Cleanup, eval=TRUE}
+  
+system("cp *.pdf ../results/master/Clusters/Supportive_typeB")
+system("cp *.png ../results/master/Clusters/Supportive_typeB")
+system("cp *.tex ../results/master/Clusters/Supportive_typeB")
+system("cp *.csv ../results/master/Clusters/Supportive_typeB")
+system("../aux_files/cleanup.sh")
+
+```

@@ -1,0 +1,19 @@
+version                : 1.0
+flag_microplate_dataset: True
+feat_start             : 17
+control_type_name      : CTRL
+plate_names            : [41744,41749,41754,41755,41756,41757]
+plate_names_abbrev     : [P1,P2,P3,P4,P5,P6]
+exclude_cols           : [Children, Location, Euler]
+qc_file                : qc.csv
+exclude_nt             : False
+mapping:
+ dbname: SIGMA2_Pilot_2013_10_11_Analysis_Per_Image
+ metadata_tag: Image_Metadata_
+ cast_as_factor: False
+ explicit_mappings: 
+  ASSAY_WELL_ROLE: Type
+  GeneSymbol: Gene
+create_treatment_by_combining: Gene,AlleleDesc
+auto_treatment_synonym: 'Gene'
+

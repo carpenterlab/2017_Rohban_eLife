@@ -1,0 +1,377 @@
+```{r Initial analysis}
+
+rm(list = ls())
+source("../aux_files/pdf_cat_A_aux.R")
+source("../aux_files/per.cell.image.collection.R")
+
+library("htmlTable")
+library("EBImage")
+library("knitr")
+library("xtable")
+library("dplyr")
+library("stringr")
+library("corrplot")
+library("wordcloud")
+library("htmlTable")
+library("DBI")
+
+use.cache <- T
+workspace.file <- "../results/master/Initial_analysis/Initial_analysis_workspace.RData"
+
+if (use.cache) {
+  if (file.exists(workspace.file)) {
+    load(workspace.file)
+  } else {
+    knit("Initial_analysis.Rmd")
+    load(workspace.file)
+  }
+} else {
+  knit("Initial_analysis.Rmd")
+  load(workspace.file)
+}
+
+scale.bar.um.per.pixel <- 0.656
+host <- "localhost"
+dbname = "TargetAccelerator"
+user = "root"
+password = "password"
+port <- 3306
+
+```
+
+```{r Finding the map from features to 2D space for category A pdfs, eval=TRUE}
+
+feats.Pf <- Pf_org.org$feat_cols
+feats.correlation.mat <- cor(Pf_org.org$data[, feats.Pf])
+
+dsMatrix <- as.dist(1 - abs(feats.correlation.mat))
+fit <- cmdscale(dsMatrix, eig = FALSE, k = 2)
+cls.fitd.org <- data.frame(fit)
+
+```
+
+```{r Printing out z-score of a feature for a particular cluster, eval=FALSE}
+
+# feature name
+feat <- "Cells_AreaShape_FormFactor"
+
+# cluster id
+cl.ind <- 10
+
+Px.org.org.ta.sc.alt <- data.frame(Pf_org.org.rep.collapsed$data[,Pf_org.org.rep.collapsed$feat_cols], Treatment = Pf_org.org.rep.collapsed$data$Treatment)
+trt.well <- Pf_org$data %>% dplyr::select(one_of(c("Well", "Treatment"))) %>% unique()
+Px.org.org.ta.sc.alt <- join(Px.org.org.ta.sc.alt, trt.well, by = "Treatment")
+df <- Px.org.org.ta.sc.alt %>% dplyr::filter(Treatment %in% cls[[cl.ind]]) %>% dplyr::select(one_of(c("Treatment", feat))) 
+df[[feat]] <- round(df[[feat]], digits = 3)
+u <- htmlTable(df, rnames = rep("", length(df[,1])), align="c")
+print(head(u))
+print(u)
+
+x <- Px.org.org.ta.sc.alt %>% dplyr::filter(Treatment %in% cls[[cl.ind]]) %>% dplyr::select(one_of(Pf_org.org.rep.collapsed$feat_cols)) %>% apply(., 2, mean) 
+or <- order(abs(x), decreasing = TRUE)
+D <- data.frame(feature = names(x)[or], z.score = x[or])
+h <- D %>% head(., 50) %>% dplyr::mutate(z.score = round(z.score, 2)) %>% htmlTable::htmlTable(., rnames = rep("", NROW(D)))
+cat(h, file = "cluster.html")
+
+```
+
+```{r Creating category A pdf for each cluster, eval=TRUE}
+  
+quartz(width = 18, height = 10)
+tag.pdf <- ""
+
+cls.index.to.look.at <- 1:length(cls)
+compile.tex <- TRUE
+image.fetch <- TRUE
+pdf.version <- "A" 
+pdf.postfix <- pdf.version
+mn.col <- 0
+mx.col <- 1.0
+significance.ratio <- 1
+area.shape.plot.width <- 13
+area.shape.plot.height <- 2
+cex.unit.mds.main.f <- 0.15
+cex.unit.mds.f <- 0.15
+cex.max.thr <- 2.5
+cex.min.thr <- 0.5
+max.num.of.feats.mds <- 20
+inacitvity.thr <- 0.3       # if product of two corresponding features in a compound and gene is less than this value, we declare it as a mismatch
+barplot.cex.title <- 0.5
+normalize.heat.maps <- FALSE
+par(mar = c(5, 5, 5, 5))
+scl.tmp <- 0.4 * 5/(7 + 1)
+scale.bar.len <- 100
+
+cor.ORFs <- function(trt1, trt2) {
+  i1 <- which(Pf.trt.collapsed$data$Treatment == trt1)
+  i2 <- which(Pf.trt.collapsed$data$Treatment == trt2)
+  Px <- Pf.trt.collapsed$data[Pf.trt.collapsed$feat_cols]
+  return(as.vector(cor(t(Px[i1, ]), t(Px[i2, ]))))
+}
+
+cor.ORFs.set <- function(trt1, trt2) {
+  i1 <- which(Pf.trt.collapsed$data$Treatment %in% trt1)
+  i2 <- which(Pf.trt.collapsed$data$Treatment %in% trt2)
+  Px <- Pf.trt.collapsed$data[Pf.trt.collapsed$feat_cols]
+  
+  return(as.vector(cor(t(Px[i1, ]), t(Px[i2, ]))))
+}
+
+system(command = "mkdir -p ../results/master/Clusters/Supportive")
+
+# Calculating the correlation matrix
+cr <- cor(t(Px))
+
+# Naming clusters by pasting names of their members together
+cluster.names <- c()
+for (trts in cls) {
+  cluster.names <- c(cluster.names, paste(trts, collapse = "\n"))
+}
+
+# Counting the number of features in different categories -- stroing in nrm
+feat.name.in <- Pf_org$feat_cols
+feat.counts <- count.features.in.categories(feat.name.in)
+nrm <- feat.counts$normal
+nrm.v <- feat.counts$area.shape
+
+# Iterating over the clusters to make the pdfs
+cl.ind.i <- 0
+for (trts in cls[cls.index.to.look.at]) {
+  cl.ind.i <- cl.ind.i + 1
+  cl.ind <- cls.index.to.look.at[cl.ind.i]
+  
+  # Getting treatment pathway information
+  pth.data <- unique(Pf.trt$data %>% dplyr::filter(Treatment %in% trts) %>% dplyr::select(one_of(c("Treatment", "Pathway", "Activator.Inhibitor"))) %>% dplyr::mutate(Activator.Inhibitor = ifelse(Activator.Inhibitor == 0, "Activator", "Inhibitor")) %>% dplyr::arrange(Pathway))   
+  cell.cnt.pth <- data.frame(Treatment = trt.ta[(trt.ta %in% trts)], cell.count = Px.org.all.ta.sc$Cells_AreaShape_Count[(trt.ta %in% trts)])
+  pth.data <- plyr::join(pth.data, cell.cnt.pth)
+  addtorow <- list()
+  addtorow$pos <- list(0, 0)
+  addtorow$command <- c("& \\multicolumn{2}{c}{Expert Annotation} & \\\\\n", "\\cline{2-3} Treatment & Pathway & Regulation Type & Cell Count z-score \\\\\n")
+  print(pth.data, row.names = FALSE)
+  
+  # Setting the tex file name for each cluster
+  cluster.tex.file <- sprintf("Cluster_%d%s.tex", cl.ind, pdf.postfix)
+  cluster.pdf.file <- sprintf("Cluster_%d%s.pdf", cl.ind, pdf.postfix)
+  
+  # Creating TeX preamble 
+  print.latex.preamble(cluster.tex.file, confidential.watermark = F, tag.pdf = sprintf("Cluster %d", cl.ind.i))
+  
+  # Creating TeX for pathway - treatment table
+  tbl1 <- sprintf("tbl1_C%d.tex", cl.ind)
+  tbl2 <- sprintf("tbl2_C%d.tex", cl.ind)
+  pth.data.tmp <- pth.data
+  pth.data.tmp$Treatment <- as.character(pth.data.tmp$Treatment)
+  for (i in 1:nrow(pth.data.tmp)) {
+    pth.data.tmp$Treatment[i] <- sprintf("{\\color{blue} %s}", str_replace_all(pth.data.tmp$Treatment[i], "_", "\\\\_"))
+  }
+  print.xtable(xtable(pth.data.tmp), file = tbl1, append = getOption("xtable.append", FALSE), include.rownames=FALSE, floating=FALSE, add.to.row = addtorow, include.colnames = FALSE, sanitize.text.function = I)
+  
+  # Computing and printing out anti-genes of the cluster
+  all.other.ORFs<- setdiff(strongs.indx.General, trts)
+  orf.cluster.cor.med <- c()
+  orf.cluster.cor.mad <- c()
+  for (trtx in all.other.ORFs) {
+    vls <- unlist(lapply(cls[cl.ind][[1]], function(x) cor.ORFs(trtx, x)))
+    orf.cluster.cor.med <-c(orf.cluster.cor.med, mean(vls))
+    orf.cluster.cor.mad <-c(orf.cluster.cor.mad, sd(vls))
+  }
+  ord <- order(orf.cluster.cor.med, decreasing = FALSE)
+  cat("top 5 negatively correlated treatments to the cluster \n")
+  pathway.anti.genes <- unique(Pf.trt$data %>% dplyr::filter(Treatment %in% all.other.ORFs[ord[1:5]]) %>% dplyr::select(one_of(c("Treatment", "Pathway", "Activator.Inhibitor"))) %>% dplyr::mutate(Activator.Inhibitor = ifelse(Activator.Inhibitor == 0, "Activator", "Inhibitor")))
+  scores.anti.genes <- data.frame(Treatment = all.other.ORFs[ord[1:5]], median.score = orf.cluster.cor.med[ord[1:5]], mad.score= orf.cluster.cor.mad[ord[1:5]])
+  pth.score.anti.genes <- join(pathway.anti.genes, scores.anti.genes, by="Treatment")
+  pth.score.anti.genes <- pth.score.anti.genes %>% dplyr::arrange(median.score)
+  df <- pth.score.anti.genes
+  print(df, row.names = FALSE)
+  df.tmp <- df
+  df.tmp$Treatment <- as.character(df.tmp$Treatment)
+  for (i in 1:nrow(df.tmp)) {
+    df.tmp$Treatment[i] <- sprintf("{\\color{red} %s}", str_replace_all(df.tmp$Treatment[i], "_", "\\\\_"))
+  }
+  
+  # Creating TeX file for anti-genes 
+  addtorow <- list()
+  addtorow$pos <- list(0, 0)
+  addtorow$command <- c("& \\multicolumn{2}{c}{Expert Annotation} & & \\\\\n", "\\cline{2-3} Treatment & Pathway & Regulation Type & Mean Correlation &  Standard Deviation \\\\\n")
+  print.xtable(xtable(df.tmp), file = tbl2, append = getOption("xtable.append", FALSE), include.rownames=FALSE, floating=FALSE, add.to.row = addtorow, include.colnames = FALSE, sanitize.text.function = I)
+  
+  # Creating within cluster correlation matrix
+  corrplot(cr[trts, trts],method = "circle", diag = F, tl.cex = 2, mar = c(5, 7, 5, 38), tl.srt=60)
+  dev.print(device = pdf, sprintf("cls_%d_within_cluster_corr.pdf", cl.ind))
+  
+  # Barplot : correlation of the cluster to the others
+  clus.corrs <- c()
+  clus.ids <- 1:length(cls)
+  for (cls.ids in clus.ids) {
+    if (cl.ind == cls.ids) {
+      xx <- (cor.ORFs.set(cls[cl.ind][[1]], cls[cl.ind][[1]])) 
+      xx <- xx[abs(xx - 1.0000) > 10^-5]
+      clus.corrs <- c(clus.corrs, median(xx))  
+    } else {
+      clus.corrs <- c(clus.corrs, median(cor.ORFs.set(cls[cl.ind][[1]], cls[cls.ids][[1]])))  
+    }
+  }
+  par(xpd=F)
+  par(mar = c(10, 5, 5, 1))
+  col.br.plt <- rep("black", length(cls))
+  col.br.plt[cl.ind] <- "blue"
+  barpos <- barplot(clus.corrs, xlab = "", ylab = "Median Correlation to genes in the cluster", bty="n", main = "", ylim = c(-0.75, 0.75))
+  mtext(cluster.names[clus.ids], col = col.br.plt, at=barpos, padj=1, cex = barplot.cex.title, bty="n", side = 1) 
+  clusters.comparison.file <- sprintf("Cluster%d_comparison.pdf", cl.ind)
+  dev.print(device=pdf, clusters.comparison.file) 
+   
+  # Placing last two TeX files in the main file
+  sink(file = cluster.tex.file, append = TRUE)
+  cat(" \\begin{tabular}{m{4cm} m{24cm} m{38cm} m{24cm}}\n")
+  cat("\\centering\n")
+  cat("& \\begin{center} {\\bf \\HUGE a} \\end{center} & \\begin{center} {\\bf \\HUGE b} \\end{center} & \\begin{center} {\\bf \\HUGE c} \\end{center} \\\\")
+  cat(sprintf("{\\bf \\HUGE \\quad 1} & {\\begin{center} {\\bf \\huge Genes in the cluster along with the pathways as annotated by experts} \\end{center}} {\\scalebox{0.9}{\\input{./%s}}} & \n", tbl1))
+  cat(sprintf("{\\begin{center} {\\bf \\huge How similar is this cluster to the other clusters?} \\end{center}} {\\includegraphics[scale = 0.85]{%s}} & \n", clusters.comparison.file))
+  cat(sprintf("{\\begin{center} {\\bf \\huge Top 5 genes/alleles negatively correlated to the cluster} \\end{center}} {\\scalebox{0.9}{\\input{./%s}}} \n", tbl2))
+  cat("\\end{tabular}  \n")
+  sink()
+  
+  # Constructing the summary of active features in the cluster
+  ic.output <- grid.distinctive.feature.summary(Px.org.org.ta.sc, colnames(Px.org.org.ta.sc), trt.ta, cls[[cl.ind]], significance.ratio)
+  ic <- ic.output$normal
+  ic.v <- ic.output$area.shape
+  m.pos <- ic.output$feat.score
+  print(ic)
+  print(sum(ic, na.rm = T))  
+  m.pos.clust <- as.data.frame(m.pos[feat.name.in, "score"])
+  rownames(m.pos.clust) <- feat.name.in
+  colnames(m.pos.clust) <- "score"
+  
+  # plotting the summary of distinctive features as a grid
+  myImagePlot(ic, mn.col, max(max(ic.v, na.rm = T), max(ic, na.rm = T)), no.color.scale = FALSE, title = "")
+  dev.print(device = pdf, sprintf("Cluster%d.pdf", cl.ind))
+  myImagePlot(ic.v, mn.col, max(max(ic.v, na.rm = T), max(ic, na.rm = T)), no.color.scale = TRUE, title = "")
+  dev.print(device = pdf, sprintf("Cluster%d_AreaShape.pdf", cl.ind), width = area.shape.plot.width, height = area.shape.plot.height)
+  
+  # Outputing MDS of feature intersection    
+  feat.mds.file <- sprintf("Cluster%d_feat_MDS.pdf", cl.ind)
+  feats.mds.cluster(z.score = m.pos, cex.min.thr = cex.min.thr, cex.max.thr = cex.max.thr, cex.unit = cex.unit.mds.main.f, file.name = feat.mds.file, cls.fitd.org = cls.fitd.org, max.num.of.feats = max.num.of.feats.mds)
+  
+  #### Creating TeX file to output figures : barplots + feature intersections 
+  sink(file = cluster.tex.file, append = TRUE)
+  cat(sprintf("\\begin{center} \n \\begin{tabular}{m{2cm} m{33cm} m{36cm} m{25cm}} \\hspace{0.5cm} {\\bf \\HUGE 2} & {\\begin{center} \\bf \\huge What groups of morphological features are distinguishing in the cluster relative to the untreated samples? (maximum of absolute m-score for the features belonging to the same category; m-score defined as median of a feature z-score across genes in the cluster) Black means no feature is available in the category \\end{center}} \\begin{tabular}{c} \\includegraphics[scale = 0.7]{Cluster%d_AreaShape.pdf} \\\\", cl.ind))
+  cat("\n")
+  sink()
+  sink(file = cluster.tex.file, append = TRUE)
+  cat(sprintf("\\includegraphics[scale = 0.7]{Cluster%d.pdf} \\end{tabular} &", cl.ind))
+  cat("\n")
+  sink()
+   
+  #### Creating TeX file for the median correlation to other clusters + feature MDS of the cluster
+  if (feat.mds.file != "") {
+    tex.outp.feat.mds.cls <- sprintf("{\\begin{center} \\bf \\huge Which individual morphological features are distinguishing in the cluster relative to the untreated samples? Blue/Red means the feature has a positive/negative z-score. Size is proportional to the z-score value. \\end{center}} \\includegraphics[scale = 0.80]{%s} \n", feat.mds.file)
+  } else {
+    tex.outp.feat.mds.cls <- ""
+  }
+  sink(file = cluster.tex.file, append = TRUE)
+  cat(sprintf("%s &", tex.outp.feat.mds.cls))
+  cat("\n")
+  sink()
+  sink(file = cluster.tex.file, append = TRUE)
+  within.cls.cmd <- sprintf("{\\begin{center} \\bf \\huge How strongly are genes within the cluster correlated? \\end{center}} \\begin{center} \\includegraphics[scale = 0.80]{%s} \\end{center}", sprintf("cls_%d_within_cluster_corr.pdf", cl.ind))
+  cat(sprintf("%s \\end{tabular} \n \\end{center}", within.cls.cmd))
+  cat("\n")
+  sink()
+   
+  if (image.fetch) {
+  #### including cell images of the two most dominant channels 
+  chnl.srt <- apply(ic, 2, function(x) max(x, na.rm = T))
+  chnl.srt["RNA"] <- max(chnl.srt["RNA"], ic.v["AreaShape", "Cells"], ic.v["AreaShape", "Cytoplasm"])
+  chnl.srt["DNA"] <- max(chnl.srt["DNA"], ic.v["AreaShape", "Nuclei"])
+  chnls <- names(chnl.srt)[order(chnl.srt, decreasing = T)]
+  trts.bk <- trts
+  trts.titles <- c("Genes in the Cluster")
+  trts.im <- list(trts)  
+  trts.list <- trts.im
+  plts.list <- sort(unique(Pf$data$Plate_))
+  plts.list <- plts.list[1]
+
+  ttl.ind <- 1
+  for (trts in trts.list) {
+    ttl <- trts.titles[ttl.ind]
+    ttl.ind <- ttl.ind + 1
+    for (plt.numb in plts.list) {
+      for (trtx in trts) {
+        for (ch in chnls) {
+          im1 <- readCellImageGene(plate = plt.numb, gene = trtx, channel = ch, Pf = Pf, dbname = dbname, host = host, user = user, password = password, port = port)
+          im1.crp <- im1*5
+          im1.crp[im1.crp > 1] <- 1
+          fl.name1 <- sprintf("Cluster_%d_%s_%s_%s.png", cl.ind, trtx, ch, plt.numb)
+          writePNG(im1.crp, fl.name1)
+       }
+     }
+     for (ch in chnls) {
+       im1 <- readCellImage(plt.numb, "b02", ch, dbname = dbname, host = host, user = user, password = password, port = port)
+       im1.crp <- im1*5
+       im1.crp[im1.crp > 1] <- 1
+       if (ch == chnls[1]) {
+         im1.crp[20:35,20:(20 + scale.bar.len - 1)] <- 1
+       }
+       fl.name1 <- sprintf("Cluster_%d_Empty_%s_%s.png", cl.ind, ch, plt.numb)
+       writePNG(im1.crp, fl.name1)
+     }
+     sink(file = cluster.tex.file, append = TRUE)
+     cat(sprintf("\\vspace{3cm} \\hspace{0.75cm} \\begin{tabular}{c} {\\vspace{-28cm} \\bf \\HUGE 3} \\end{tabular} \\begin{center} \\begin{tabular}{m{2cm} m{4cm} "))
+     len.cell <- 11 
+     for (trtx in trts) {
+       cat(sprintf("m{%dcm} ", len.cell))
+     }
+     cat(sprintf("m{%dcm} ", len.cell))
+     cat("}")
+     cat(sprintf("\\multicolumn{%d}{c}{\\Huge Images show 11%s area of a well. Scale bar is %0.2f \\begin{math}\\mu\\end{math}m. Plate : %s - %s (Channels are sorted based on their dominance in the grid plot)} \\\\", length(trts)+3, "\\%", scale.bar.len * scale.bar.um.per.pixel, plt.numb, ttl))
+     cat("\n & & ")
+     cat(sprintf("{\\begin{center} {\\Huge %s} \\end{center}} & ", "Empty"))
+     for (trtx in trts) {
+       cat(sprintf("{\\begin{center} {\\Huge %s} \\end{center}}", str_replace_all(trtx, "_", "\\\\_")))
+       if (trtx != trts[length(trts)]) {
+         cat(" & ")
+       }
+     }
+     for (ch in chnls) {
+       cat(" \\\\ ")
+       if (ch == chnls[1]) {
+         cat(sprintf("\\multirow{%s}{*}{} & {\\Huge %s} & ", length(chnls) + 1, ch))  
+       } else {
+        cat(sprintf(" & {\\Huge %s} & ", ch))  
+       }
+       
+       cat(sprintf("{\\begin{center} \\includegraphics[scale = %0.2f]{%s} \\end{center}} & ", scl.tmp, sprintf("Cluster_%d_Empty_%s_%s.png", cl.ind, ch, plt.numb)))
+       for (trtx in trts) {
+         if (trtx == trts[length(trts)]) {
+           dlim <- ""
+         } else {
+           dlim <- "&"
+         }
+         cat(sprintf("{\\begin{center} \\includegraphics[scale = %0.2f]{%s} \\end{center}} %s", scl.tmp, sprintf("{Cluster_%d_%s_%s_%s}.png", cl.ind, trtx, ch, plt.numb), dlim))  
+       }
+     }
+     cat("\\end{tabular} \\end{center}")
+     sink()
+  }
+  }
+  trts <- trts.bk
+  }
+   
+  # Writing the end part of TeX file  
+  sink(file = cluster.tex.file, append = TRUE)
+  cat("} \\end{document}")
+  sink()
+  
+  # Compiling the TeX file
+  if (compile.tex) {
+    system(command=paste("xelatex --interaction=nonstopmode", basename(cluster.tex.file)))
+    system(command=sprintf("cp %s ../results/master/Clusters", cluster.pdf.file))
+  }
+}
+
+system(command="cp *.pdf ../results/master/Clusters/Supportive")
+system(command="cp *.tex ../results/master/Clusters/Supportive")
+system(command="cp *.png ../results/master/Clusters/Supportive")
+system(command="../aux_files/cleanup.sh")
+
+```
