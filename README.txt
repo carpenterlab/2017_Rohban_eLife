@@ -1,6 +1,6 @@
 Throughout the following instruction set, we assumed that the username for the owner of the database is “root”. 
 
-OS Requirement : Mac OS, or Linux
+OS Requirement : Mac OS
 Dependencies : R Ver. 3.2.2 (recommended version), MySQL Ver. 14.14 Distrib. 5.1.71 (recommended version), XeTeX 3.14159265-2.6-0.99996 (TeX Live 2016) (recommended version)
 
 — Use the following commands to import the database (will be soon available in IDR(http://idr-demo.openmicroscopy.org/) :
