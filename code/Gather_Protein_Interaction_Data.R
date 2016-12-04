@@ -38,8 +38,8 @@ Pf <- Pf.trt.strong.collapsed$data
 
 genes <- Pf$Treatment %>% lapply(., function(x) str_split(x, "_")[[1]][1]) %>% unlist %>% unique
 pr.pr.interaction <- get.all.interacting.proteins(genes)
-saveRDS(pr.pr.interaction, "pr.pr.interaction.rds")
-write.csv(pr.pr.interaction, "pr.pr.interaction.csv")
+saveRDS(pr.pr.interaction, "../results/master/protein_interaction_data/pr.pr.interaction.rds")
+write.csv(pr.pr.interaction, "../results/master/protein_interaction_data/pr.pr.interaction.csv")
 
 pr.pr.binary <- outer(rep(0, length(genes)), rep(0, length(genes)), "*")
 rownames(pr.pr.binary) <- genes
@@ -51,4 +51,4 @@ for (i in 1:NROW(pr.pr.interaction)) {
   pr.pr.binary[g2, g1] <- 1
 }
 
-saveRDS(pr.pr.binary, "pr.pr.binary.rds")
+saveRDS(pr.pr.binary, "../results/master/protein_interaction_data/pr.pr.binary.rds")
