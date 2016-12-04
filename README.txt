@@ -8,7 +8,7 @@ echo "create database TargetAccelerator" | mysql -u root -p
 mysql -u root -p TargetAccelerator < TargetAccelerator.sql
 mysql -u root -p TargetAccelerator < Per_Object_View.sql
 
-— transfer the image folder containing 6 plates of images from IDR to the “image” directory, such that each plate (e.g. 41744) would have a different directory under “image” whose name is the plate number (e.g. image/41744/). 
+— transfer the image folder containing 6 plates of images from IDR to the “images” directory, such that each plate (e.g. 41744) would have a different directory under “images” whose name is the plate number (e.g. images/41744/). 
 
 — Use the scripts in the code/profiling directory to create the profiles based on the database which contains the single cell data. The output should be placed on input/profiles. Change the host and database information in the file input/TargetAccelerator.properties if needed. This will create profiles using the database. 
 
