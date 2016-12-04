@@ -8,21 +8,21 @@ echo "create database TargetAccelerator" | mysql -u root -p
 mysql -u root -p TargetAccelerator < TargetAccelerator.sql
 mysql -u root -p TargetAccelerator < Per_Object_View.sql
 
-— transfer the image folder containing 6 plates of images from IDR to the “image” directory, such that each plate (eg. 41744) would have a different directory under “image” whose name is the plate number (e.g. image/41744/). 
+— transfer the image folder containing 6 plates of images from IDR to the “image” directory, such that each plate (e.g. 41744) would have a different directory under “image” whose name is the plate number (e.g. image/41744/). 
 
-— Use the scripts in the code/profiling directory to create the profiles based on the database which contains the single cell data. Change the host and database information in the file input/TargetAccelerator.properties if needed. This will create profiles using the database. The directory profiles contains the result of the profiling. 
+— Use the scripts in the code/profiling directory to create the profiles based on the database which contains the single cell data. The output should be placed on input/profiles. Change the host and database information in the file input/TargetAccelerator.properties if needed. This will create profiles using the database. 
 
-— Run Required_Packages_Intallation.R to install the required packages to run
+— Run Required_Packages_Intallation.R to install the required packages to run the scripts.
 
 — Use the following scripts in the code directory to analyze the data (set the working directory to “code” first):
 
-1) Initial_analysis.Rmd : initial processing of the profiles. This would then create a file containing the results “Initial_analysis_workspace.RData”, which would then be used in other scripts. The analyses in this file include : filtering the data based on QC metrics, median polishing, feature selection and dimensionality reduction, hit selection, z-scoring, and clustering. 
+1) Initial_analysis.Rmd : initial processing of the profiles. This would then create a file containing the results “results/master/Initial_analysis/Initial_analysis_workspace.RData”, which would then be used in other scripts. The analyses in this file include : filtering the data based on QC metrics, median polishing, feature selection and dimensionality reduction, hit selection, z-scoring, and clustering. 
 
 2) Dendrogram_cutoff_selection_based_on_Stability.R : an analysis which finds the threshold used for cutting the dendrogram to obtain the clusters (Fig. 3 (without subpopulation information overlay), and Supp. Fig. 4). 
 
-3) ORF_Sequence_Score_when_matched_to_transcripts.R : downloads sequence matching score to the transcripts (the result would be stored in results/master/ORFs_sequence_matching_transcripts_percentage. 
+3) ORF_Sequence_Score_when_matched_to_transcripts.R : downloads ORF sequence matching score to the transcripts (the result would be stored in results/master/ORFs_sequence_matching_transcripts_percentage. 
 
-4) Gather_Protein_Interaction_Data.R : downloads relevant protein interaction data from the BioGRID
+4) Gather_Protein_Interaction_Data.R : downloads relevant protein interaction data from the BioGRID and place the results in results/master/protein_interaction_data. 
 
 5) Printing_out_Original_Constructs_Info.R : prints out the set of all constructs used in the experiment (Supp. Table 1)
 
