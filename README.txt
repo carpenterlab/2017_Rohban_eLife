@@ -49,11 +49,11 @@ mysql -u root -p TargetAccelerator < Per_Object_View.sql
 
 13) Cluster_type_A_pdfs.Rmd : (Supp. Data for Cluster, PDFs type A, Fig. 4A and 4B type of plots are included in the PDFs. Results are stored in the results/Clusters directory)
 
-14) Cluster_type_B_pdfs.R : Supp. Data for Cluster, PDFs type B, Fig. 4C, 5A, 5B and Supp. Fig. 5 type of plots are included in the PDFs. Also the data in the PDFs are used as the overlay information in Fig. 3. Results are stored in the results/Clusters directory)
+14) Cluster_type_B_pdfs.R : Supp. Data for Cluster, PDFs type B, Fig. 4C, 6A, 6B and Supp. Fig. 5 type of plots are included in the PDFs. Also the data in the PDFs are used as the overlay information in Fig. 3. Results are stored in the results/Clusters directory)
 
 15) Target_Prediction_based_on_L1000_readout.R : code used to find common up- or down-regulated genes when a set of genes are overexpressed 
 
-16) GSEA_Plots.R : creating gene set enrichment analysis (GSEA) plots, based on query results from LINCS (Fig. 5C, Supp. Fig. 7, and Supp. Fig. 8). 
+16) GSEA_Plots.R : creating gene set enrichment analysis (GSEA) plots, based on query results from LINCS (Fig. 6C, Supp. Fig. 7, and Supp. Fig. 8). 
 
 
 
