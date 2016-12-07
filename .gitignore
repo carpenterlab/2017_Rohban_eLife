@@ -16,3 +16,5 @@ results/*
 *.md
 custom_cleanup.sh
 .Rhistory
+*.cppipe
+*.cpproj
