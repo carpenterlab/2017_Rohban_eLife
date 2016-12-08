@@ -21,5 +21,3 @@ custom_cleanup.sh
 *.cppipe
 *.cpproj
 *.npz
-input/TA_OE_B1/cache/*
-input/TA_OE_B1/*/*
