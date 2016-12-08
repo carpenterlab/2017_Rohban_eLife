@@ -26,7 +26,7 @@ mysql -u username -p TargetAccelerator < Per_Object_View.sql
 * Run `Required_Packages_Intallation.R` to install the required packages to run the scripts.
 
 ## Usage ##
-Use the following scripts in the code directory to analyze the data (set the working directory to `code` first):
+Use the following scripts in the `code` directory to analyze the data (set the working directory to `code` first):
 
 * `Initial_analysis.Rmd` : initial processing of the profiles. This would then create a file containing the results `results/master/Initial_analysis/Initial_analysis_workspace.RData`, which would then be used in other scripts. The analyses in this file include : filtering the data based on QC metrics, median polishing, feature selection and dimensionality reduction, hit selection, z-scoring, and clustering. 
 * `Dendrogram_cutoff_selection_based_on_Stability.R` : an analysis which finds the threshold used for cutting the dendrogram to obtain the clusters (Fig. 3 (without subpopulation information overlay), and Supp. Fig. 4). 
