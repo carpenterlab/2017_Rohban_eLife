@@ -16,7 +16,9 @@ We hypothesized that human genes and disease-associated alleles might be systema
 * **Database setup** : Use the following commands to import the database (will be soon available in [IDR](http://idr-demo.openmicroscopy.org); `username` has to be replaced with the actual username of owner of the database :
 	```
 	echo "create database TargetAccelerator" | mysql -u username -p
+
 	mysql -u username -p TargetAccelerator < TargetAccelerator.sql
+
 	mysql -u username -p TargetAccelerator < Per_Object_View.sql
 	```
 * **Creating profiles** : Use the script `profile.sh` in the `code/profiling` directory to create the profiles based on the database which contains the single cell data. The output would be placed in `input/profiles`. Change the host and database information in the file `input/TA_OE_B1/TargetAccelerator.properties` if needed.
