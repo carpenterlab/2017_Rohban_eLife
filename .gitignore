@@ -10,6 +10,8 @@ results/*
 *.rds
 *.rda
 *.Rmd
+*.md
+!README.md
 *.csv
 *.png
 *.tex
@@ -21,3 +23,4 @@ custom_cleanup.sh
 *.cppipe
 *.cpproj
 *.npz
+input/profiles/*
