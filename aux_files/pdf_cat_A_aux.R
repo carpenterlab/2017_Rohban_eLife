@@ -1,3 +1,49 @@
+trim.space <- function(str) {
+  if (stringr::str_length(str) == 0) {
+    return(str)
+  }
+  strt <- -1
+  endd <- -1
+  for (i in 1:(stringr::str_length(str))) {
+    if (stringr::str_sub(str, start = i, end = i) != " ") {
+      strt <- i
+      break
+    }
+  }
+  
+  for (i in seq(from = stringr::str_length(str), to = 1, by = -1)) {
+    if (stringr::str_sub(str, start = i, end = i) != " ") {
+      endd <- i
+      break
+    }
+  }
+  
+  if (stringr::str_sub(str, strt, endd) == " ") {
+    return("")
+  }
+  
+  return(stringr::str_sub(str, strt, endd))
+}
+
+parse.properties.file <- function(properties.path) {
+  u <- utils::read.table(properties.path, sep="\t", quote="")
+  ls <- list()
+  for (item in as.character(u$V1)) {
+    sp <- stringr::str_split(item, "=", n = 2)
+    key <- sp[[1]][1]
+    val <- sp[[1]][2]
+    if (is.na(key) || is.na(val)) {
+      next
+    }
+    
+    key <- trim.space(key)
+    val <- trim.space(val)
+    ls[[key]] <- val
+  }
+  
+  return(ls)
+}
+
 count.features.in.categories <- function(feat.names) {
   catx <- c("DNA", "RNA", "Mito", "ER", "AGP")
   caty <- c("Texture", "Intensity", "RadialDistribution")

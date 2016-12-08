@@ -31,11 +31,13 @@ if (use.cache) {
 }
 
 scale.bar.um.per.pixel <- 0.656
-host <- "localhost"
-dbname = "TargetAccelerator"
-user = "root"
-password = "password"
-port <- 3306
+properties.file.path <- "../input/TA_OE_B1/TargetAccelerator.properties"
+p <- parse.properties.file(properties.file.path)
+host <- p$db_host 
+dbname <- p$db_name
+user <- p$db_user
+password <- p$db_passwd
+port <- p$db_port %>% as.numeric()
 
 ```
 

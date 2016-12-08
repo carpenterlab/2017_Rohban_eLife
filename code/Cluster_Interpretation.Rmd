@@ -34,11 +34,13 @@ source("../aux_files/pdf_cat_A_aux.R")
 print(sprintf("Working on cluster %d", cl.ind))
 
 all.sites <- TRUE
-dbname <- "TargetAccelerator"
-host <- "localhost"
-user <- "root"
-password <- "password"
-port <- 3306
+properties.file.path <- "../input/TA_OE_B1/TargetAccelerator.properties"
+p <- parse.properties.file(properties.file.path)
+host <- p$db_host 
+dbname <- p$db_name
+user <- p$db_user
+password <- p$db_passwd
+port <- p$db_port %>% as.numeric()
 
 z.thr <- 0                   # use all features with abs. z-score > z.thr in the analysis (0 results in all being used)
 z.thr1 <- 2.0                # used for histogram plotting
