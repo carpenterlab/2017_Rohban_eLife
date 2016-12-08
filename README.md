@@ -40,8 +40,8 @@ Use the following scripts in the `code` directory to analyze the data (set the w
 * `Constitutively_Active_Mutant_Comparison_to_WT.R` : (Supp. Table 2)
 * `Phenotype_Strength_of_Genes_Supposed_to_Change_Morphology.R` : (Fig. 2C)
 * `GO_Term_Analysis_of_Clusters.R` : (Supp. Table 5)
-* `Cluster_type_A_pdfs.Rmd` : (Supp. Data for Cluster, PDFs type A, Fig. 4A and 4B type of plots are included in the PDFs. Results are stored in the `results/Clusters` directory)
-* `Cluster_type_B_pdfs.R` : Supp. Data for Cluster, PDFs type B, Fig. 4C, 6A, 6B and Supp. Fig. 5 type of plots are included in the PDFs. Also the data in the PDFs are used as the overlay information in Fig. 3. Results are stored in the `results/Clusters` directory)
+* `Cluster_type_A_pdfs.Rmd` : (Supp. Data for Cluster, PDFs type A, Fig. 4A and 4B type of plots are included in the PDFs. Results are stored in the `results/master/Clusters` directory)
+* `Cluster_type_B_pdfs.R` : Supp. Data for Cluster, PDFs type B, Fig. 4C, 6A, 6B and Supp. Fig. 5 type of plots are included in the PDFs. Also the data in the PDFs are used as the overlay information in Fig. 3. Results are stored in the `results/master/Clusters` directory)
 * `Target_Prediction_based_on_L1000_readout.R` : code used to find common up- or down-regulated genes when a set of genes are overexpressed 
 * `GSEA_Plots.R` : creating gene set enrichment analysis (GSEA) plots, based on query results from LINCS (Fig. 6C, Supp. Fig. 7, and Supp. Fig. 8). 
 
