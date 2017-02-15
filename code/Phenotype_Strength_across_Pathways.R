@@ -30,6 +30,7 @@ hit.sel.thr <- quantile(null.data, 0.95) %>% as.matrix() %>% as.vector()
 
 cor_type <- "pearson"
 var.name <- "sim_pearson_q50"
+strongs.indx <- strongs.indx.General
 strongs.indx.General <- Pf.trt$data$Treatment %>% unique
 
 Pf.trt.tmp <- Pf.trt
@@ -46,7 +47,7 @@ rep.sd.values <- c()
 cnts.n <- c()
 ns <- c()
 p.type.name <- "All"
-
+trts.all <- c()
 
 for (pth in pthws.all) {
   trts <- unique(Pf.trt$data$Treatment[which(Pf.trt$data$Treatment %in% strongs.indx.General & (Pf.trt$data$Pathway == pth) & !str_detect(Pf.trt$data$Treatment, "mismatch"))])
@@ -77,6 +78,7 @@ for (pth in pthws.all) {
   }
   
   trts <- trts.tm
+  trts.all <- c(trts.all, trts.tm)
   
   if (length(trts) > 0) {
     indx <- which(Pf.trt.trt$data$Treatment %in% trts)
@@ -103,3 +105,13 @@ g <- g + xlab("")
 g <- g + geom_hline(yintercept = hit.sel.thr, color = "red")
 g <- g + coord_flip()
 ggsave(sprintf("%s.pdf", p.type.name), g, width = 10, height = 12)
+
+
+Pf.trt.trt$data$Pathway <- lapply(Pf.trt.trt$data$Pathway, function(x) str_replace_all(x, "Canonical ", "")) %>% unlist
+Pf.trt.trt$data$Pathway[which(Pf.trt.trt$data$Pathway == "Transcription Factors")] <- "C-EBP alpha"
+
+Pf.trt.trt$data %>% dplyr::filter(Treatment %in% trts.all) %>% 
+  dplyr::group_by(Pathway) %>% 
+  dplyr::summarise(strong.phenotype = length(which(Treatment %in% strongs.indx)), total.genes = n()) %>% 
+  dplyr::arrange(-strong.phenotype/total.genes) %>%
+  htmlTable::htmlTable()
